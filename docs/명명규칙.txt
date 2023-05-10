@@ -9,6 +9,7 @@ JAVA
 2. 상세 조회 : *Detail.do
 3. 데이터 입력 : *Add.do
 4. 데이터 수정 : *Updt.do
+5. 리스트데이터조회 : *ListData.do
 
 XML
 

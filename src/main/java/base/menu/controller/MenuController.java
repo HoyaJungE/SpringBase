@@ -1,5 +1,8 @@
 package base.menu.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -12,6 +15,7 @@ import base.common.common.CommandMap;
 import base.menu.service.MenuService;
 
 @Controller
+@RequestMapping(value = "/menu/*")
 public class MenuController {
 
 	Logger log = Logger.getLogger(this.getClass()); //로그
@@ -20,17 +24,18 @@ public class MenuController {
 	private MenuService menuService;
 	
 	@RequestMapping(value = "menuList.do")
-	public ModelAndView openMainList(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView("main");
+	public String menuList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		request.setAttribute("menuList", menuService.selectMenuList(commandMap.getMap()));
+		return "menu/menuList";
+	}
 		
-		mv.addObject("IDX", commandMap.getMap().get("IDX"));
-		
-		String filePath_temp = request.getContextPath() + "/file/";
-		mv.addObject("path", filePath_temp);
-		request.setAttribute("path", filePath_temp);
+	@RequestMapping(value = "selectMenuListData.do")
+	public ModelAndView selectMenuListData(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("jsonView");
+    	
+    	List<Map<String,Object>> list = menuService.selectMenuList(commandMap.getMap());
+    	mv.addObject("menuList", list);
 		return mv;
 	}
-	
-	
 
 }
