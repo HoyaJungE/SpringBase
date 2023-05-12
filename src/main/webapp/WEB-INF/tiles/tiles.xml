@@ -14,156 +14,36 @@
   	
   </definition>
 
-  <!-- base를 상속받는 -->
   <definition name="main" extends="base">
-  
   	<put-attribute name="content" value="/WEB-INF/views/main.jsp"/>
-  	
   </definition>
   
   <definition name="shop/*" extends="base">
-  
   	<put-attribute name="content" value="/WEB-INF/views/shop/{1}.jsp"/>
-  	
-
   </definition> 
   
-  <definition name="/shop/cateGoodsList" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/shop/cateGoodsList.jsp"/>
-     
-  </definition>
-  
-  <definition name="/shop/mainSearch" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/shop/mainSearch.jsp"/>
-     
-  </definition>
- 
-  
-  <definition name="login/*" extends="base">
-  
-  	<put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp"/>
-  	
-  </definition>
-  
-  <definition name="basket/*" extends="base">
-  
-  	<put-attribute name="content" value="/WEB-INF/views/basket/{1}.jsp"/>
-  	
-  </definition>
-  
   <definition name="order/*" extends="base">
-  
   	<put-attribute name="content" value="/WEB-INF/views/order/{1}.jsp"/>
-  	
   </definition>
   
   <definition name="my/*" extends="base">
-  
   	<put-attribute name="content" value="/WEB-INF/views/my/{1}.jsp"/>
-  	
   </definition>
-  
-  <definition name="/my/myOrderList" extends="base">
-  
-	<put-attribute name="content" value="/WEB-INF/views/my/myOrderList.jsp"/>
-  	
-  </definition>
-  
-  <definition name="/my/myPointList" extends="base">
-  
-	<put-attribute name="content" value="/WEB-INF/views/my/myPointList.jsp"/>
-  	
-  </definition>
-  
-  <definition name="/my/myGoodsQnaList" extends="base">
-  
-	<put-attribute name="content" value="/WEB-INF/views/my/myGoodsQnaList.jsp"/>
-  	
-  </definition>
-  
-  <definition name="/my/myReviewList" extends="base">
-  
-	<put-attribute name="content" value="/WEB-INF/views/my/myReviewList.jsp"/>
-  	
-  </definition>
-  
 
-  <!-- 수민 -->
-       <!--FAQ -->
-  <definition name="/board/faqList" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/faqList.jsp"/>
-     
+  <definition name="/board/*" extends="base">
+     <put-attribute name="content" value="/WEB-INF/views/board/{1}.jsp"/>
   </definition>
   
-  <definition name="/board/faqWrite" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/faqWrite.jsp"/>
-     
+  <definition name="/menu/*" extends="base">
+     <put-attribute name="content" value="/WEB-INF/views/menu/{1}.jsp"/>
   </definition>
   
-  <definition name="/board/faqUpdate" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/faqUpdate.jsp"/>
-     
+  <definition name="/menu/*/*" extends="base">
+     <put-attribute name="content" value="/WEB-INF/views/menu/{1}/{2}.jsp"/>
   </definition>
   
-     <!--NOTICE -->
-  <definition name="/board/noticeList" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/noticeList.jsp"/>
-     
+  <definition name="/menu/*/*/*" extends="base">
+     <put-attribute name="content" value="/WEB-INF/views/menu/{1}/{2}/{3}.jsp"/>
   </definition>
-  
-  <definition name="/board/noticeDetail" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/noticeDetail.jsp"/>
-     
-  </definition>
-  
-  <definition name="/board/noticeWrite" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/noticeWrite.jsp"/>
-     
-  </definition>
-  
-  <definition name="/board/noticeUpdate" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/noticeUpdate.jsp"/>
-     
-  </definition>
-  
-   <!--QNA -->
-  <definition name="/board/qnaList" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/qnaList.jsp"/>
-     
-  </definition>
-  
-  <definition name="/board/qnaDetail" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/qnaDetail.jsp"/>
-     
-  </definition>
-  
-  <definition name="/board/qnaWrite" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/qnaWrite.jsp"/>
-     
-  </definition>
-  
-  <definition name="/board/qnaUpdate" extends="base">
-  
-     <put-attribute name="content" value="/WEB-INF/views/board/qnaUpdate.jsp"/>
-     
-  </definition>
-  
-  
-
-  
-  <!-- 매핑 -->
-  
   
 </tiles-definitions>

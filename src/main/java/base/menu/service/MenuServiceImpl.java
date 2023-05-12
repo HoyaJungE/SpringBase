@@ -33,16 +33,12 @@ public class MenuServiceImpl implements MenuService{
 
 	@Override
 	public Map<String, Object> selectMenuDetail(Map<String, Object> map) throws Exception {
-		Map<String, Object> resultMap = new HashMap<String,Object>();
-		Map<String, Object> tempMap = menuDAO.selectMenuDetail(map);
-		resultMap.put("map", tempMap);
-		return resultMap;
+		return menuDAO.selectMenuDetail(map);
 	}
 
 	@Override
 	public void updateMenu(Map<String, Object> map, HttpServletRequest request) throws Exception{
 		menuDAO.updateMenu(map);
-
 	}
 
 	@Override

@@ -38,6 +38,7 @@
 					<td><a href="/base/myOrderList.do">마이페이지</a></td> <td> | </td>
 					<td><a href="/base/basket/basketList.do">장바구니</a></td> <td> | </td>
 					<td><a href="/base/event/list.do">이벤트</a></td> <td> | </td>
+					<td><a href="/base/menu/menuList.do">메뉴관리</a></td> <td> | </td>
 				</c:otherwise>
 			</c:choose>
 			

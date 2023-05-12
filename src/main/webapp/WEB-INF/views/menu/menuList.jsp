@@ -12,6 +12,13 @@
 <script
    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
+
+<style>
+.menulist{
+	text-align: center;
+}
+
+</style>
 </head>
 
 <body>
@@ -35,7 +42,8 @@
          <col width="20%" />
          <col width="5%" />
          <col width="20%" />
-         <col width="20%" />
+         <col width="10%" />
+         <col width="10%" />
       </colgroup>
       <thead>
          <tr>
@@ -43,6 +51,7 @@
             <th scope="col">제목</th>
             <th scope="col">작성자 아이디</th>
             <th scope="col">순서</th>
+            <th scope="col">메뉴URL</th>
             <th scope="col">작성일</th>
             <th scope="col">수정일</th>
          </tr>
@@ -69,24 +78,27 @@
   			async : false, 
   			success : function(data, status) {
   				$.each(data.menuList, function(key, value){
-  	               str += '<tr class="list' + value.MENU_ID + '">';
+  	               str += '<tr class="list' + value.menuId + '">';
   	               str += '<td>';
-  	               str += value.MENU_ID;
+  	               str += value.menuId;
   	               str += '</td>';
   	               str += '<td>';
-  	               str += value.MENU_NAME;
+  	               str += '<a href="<c:url value="/menu/menuDetail.do"/>?menuId='+ value.menuId +'">' + value.menuName + '<a/>';
   	               str += '</td>';
   	               str += '<td>';
-	               str += value.WRITER_ID;
+	               str += value.writerId;
 	               str += '</td>';
 	               str += '<td>';
-  	               str += value.ORDR;
-  	               str += '</td>';
-	               str += '<td>';
-  	               str += value.INSRT_DT;
+  	               str += value.ordr;
   	               str += '</td>';
   	               str += '<td>';
-	               str += value.UPDT_DT;
+	               str += value.menuUrl;
+	               str += '</td>';
+	               str += '<td>';
+  	               str += value.insrtDt;
+  	               str += '</td>';
+  	               str += '<td>';
+	               str += value.updtDt;
 	               str += '</td>';
   	               str += '</tr>';
   	            });

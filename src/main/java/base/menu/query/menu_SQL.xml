@@ -3,7 +3,7 @@
 
 <mapper namespace="menu">
 
-	<select id="selectMenuList" parameterType="hashmap" resultType="hashmap">
+	<select id="selectMenuList" resultType="camel">
 		/* 호출ID : selectMenuList - 메뉴 리스트 불러오기 */
 		SELECT MENU_ID
 			   ,UPPR_MENU_ID
@@ -18,7 +18,7 @@
 		ORDER SIBLINGS BY ORDR	
 	</select>
 	
-	<insert id="insertMenu" parameterType="hashmap" useGeneratedKeys="true" keyProperty="MENU_ID">
+	<insert id="insertMenu" parameterType="camel" useGeneratedKeys="true" keyProperty="MENU_ID">
 		/* 호출ID : insertMenu - 메뉴 등록하기 */
 		<selectKey keyProperty="MENU_ID" resultType="string" order="BEFORE">
 			SELECT MENU_ID_SEQ.NEXTVAL FROM DUAL
@@ -30,6 +30,7 @@
 			 ,MENU_NAME
 			 ,WRITER_ID
 			 ,ORDR
+			 ,MENU_URL
 			 ,INSRT_DT
 		)
 		VALUES
@@ -39,17 +40,19 @@
 			,#{menuname}
 			,#{writerId}
 			,#{ordr}
+			,#{menuUrl}
 			,SYSDATE
 		)
 	</insert>
 	
-	<select id="selectMenuDetail" parameterType="hashmap" resultType="hashmap">
+	<select id="selectMenuDetail" resultType="camel">
 		/* 호출ID :selectMenuDetail - 메뉴 상세페이지 불러오기 */
 		SELECT MENU_ID
 			   ,UPPR_MENU_ID
 			   ,MENU_NAME
 			   ,WRITER_ID
 			   ,ORDR
+			   ,MENU_URL
 			   ,INSRT_DT
 			   ,UPDT_DT
 		FROM MENU
@@ -64,6 +67,7 @@
 			MENU_NAME		= #{menuName},
 			WRITER_ID		= #{writerId},
 			ORDR			= #{ordr},
+			MENU_URL		= #{menuUrl},
 			UPDT_DT 	 	= SYSDATE
 		WHERE MENU_ID = #{menuId} 
 	</update>

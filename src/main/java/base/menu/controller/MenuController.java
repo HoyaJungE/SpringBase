@@ -24,18 +24,29 @@ public class MenuController {
 	private MenuService menuService;
 	
 	@RequestMapping(value = "menuList.do")
-	public String menuList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
-		request.setAttribute("menuList", menuService.selectMenuList(ParamMap.getMap()));
+	public String menuList(ParamMap paramMap, HttpServletRequest request) throws Exception {
 		return "menu/menuList";
 	}
 		
 	@RequestMapping(value = "selectMenuListData.do")
-	public ModelAndView selectMenuListData(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+	public ModelAndView selectMenuListData(ParamMap paramMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");
     	
-    	List<Map<String,Object>> list = menuService.selectMenuList(ParamMap.getMap());
+    	List<Map<String,Object>> list = menuService.selectMenuList(paramMap.getMap());
     	mv.addObject("menuList", list);
 		return mv;
+	}
+	
+	@RequestMapping(value = "menuDetail.do")
+	public String menuDetail(ParamMap paramMap, HttpServletRequest request) throws Exception {
+		request.setAttribute("map", menuService.selectMenuDetail(paramMap.getMap()));
+		return "menu/menuDetail";
+	}
+	
+	@RequestMapping(value = "menuUpdate.do")
+	public String menuUpdate(ParamMap paramMap, HttpServletRequest request) throws Exception {
+		menuService.updateMenu(paramMap.getMap(), request);
+		return "menu/menuList";
 	}
 
 }
