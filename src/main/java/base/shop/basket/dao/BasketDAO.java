@@ -5,43 +5,43 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.common.dao.AbstractDao;
 
 @Repository("basketDao")
 public class BasketDAO extends AbstractDao{
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> basketList(CommandMap commandMap) throws Exception{
-		return sqlSession.selectList("basket.basketList", commandMap.getMap());
+	public List<Map<String, Object>> basketList(ParamMap ParamMap) throws Exception{
+		return sqlSession.selectList("basket.basketList", ParamMap.getMap());
 	}
 	
-	public void basketModify(CommandMap commandMap) throws Exception{
-		sqlSession.update("basket.basketModify", commandMap.getMap());
+	public void basketModify(ParamMap ParamMap) throws Exception{
+		sqlSession.update("basket.basketModify", ParamMap.getMap());
 	}
 	
-	public void basketDelete(CommandMap commandMap) throws Exception{
-		sqlSession.delete("basket.basketDelete", commandMap.getMap());
+	public void basketDelete(ParamMap ParamMap) throws Exception{
+		sqlSession.delete("basket.basketDelete", ParamMap.getMap());
 		
 	}
 
-	public void basketAllDelete(CommandMap commandMap) throws Exception{
-		sqlSession.delete("basket.basketAllDelete", commandMap.getMap());
+	public void basketAllDelete(ParamMap ParamMap) throws Exception{
+		sqlSession.delete("basket.basketAllDelete", ParamMap.getMap());
 		
 	}
 
 	@SuppressWarnings("unchecked")
-	public Map<String, Object> selectGoodsLike(CommandMap commandMap) throws Exception{
-		return sqlSession.selectOne("basket.selectGoodsLike", commandMap.getMap());
+	public Map<String, Object> selectGoodsLike(ParamMap ParamMap) throws Exception{
+		return sqlSession.selectOne("basket.selectGoodsLike", ParamMap.getMap());
 	}
 
-	public void insertGoodsLike(CommandMap commandMap) {
-		sqlSession.insert("basket.insertGoodsLike", commandMap.getMap());
+	public void insertGoodsLike(ParamMap ParamMap) {
+		sqlSession.insert("basket.insertGoodsLike", ParamMap.getMap());
 		
 	}
 
-	public List<Map<String, Object>> basketSelectList(CommandMap commandMap) {
-		return sqlSession.selectList("basket.basketSelectList", commandMap.getMap());
+	public List<Map<String, Object>> basketSelectList(ParamMap ParamMap) {
+		return sqlSession.selectList("basket.basketSelectList", ParamMap.getMap());
 	}
 
 

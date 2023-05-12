@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import base.board.faq.service.FaqService;
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 @Controller
 public class FaqController {
@@ -24,17 +24,17 @@ public class FaqController {
 	private FaqService faqService;
 	
 	@RequestMapping(value="/faq/openFaqList.do")
-    public ModelAndView openFaqList(CommandMap commandMap) throws Exception{
+    public ModelAndView openFaqList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/board/faqList");
     	
     	return mv;
     }
 	
 	@RequestMapping(value="/faq/selectFaqList.do")
-    public ModelAndView selectFaqList(CommandMap commandMap) throws Exception{
+    public ModelAndView selectFaqList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
-    	List<Map<String,Object>> list = faqService.selectFaqList(commandMap.getMap());
+    	List<Map<String,Object>> list = faqService.selectFaqList(ParamMap.getMap());
     	mv.addObject("list", list);
     	if(list.size() > 0){
     		mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
@@ -47,26 +47,26 @@ public class FaqController {
     }
 	
 	@RequestMapping(value="/faq/openFaqWrite.do")
-	public ModelAndView openFaqWrite(CommandMap commandMap) throws Exception{
+	public ModelAndView openFaqWrite(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/faqWrite");
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/faq/insertFaq.do")
-	public ModelAndView insertFaq(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView insertFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqList.do");
 		
-		faqService.insertFaq(commandMap.getMap(), request);
+		faqService.insertFaq(ParamMap.getMap(), request);
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/faq/openFaqDetail.do")
-	public ModelAndView openFaqDetail(CommandMap commandMap) throws Exception{
+	public ModelAndView openFaqDetail(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/faqDetail");
 		
-		Map<String,Object> map = faqService.selectFaqDetail(commandMap.getMap());
+		Map<String,Object> map = faqService.selectFaqDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 		mv.addObject("list", map.get("list"));
 		
@@ -74,10 +74,10 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faq/openFaqUpdate.do")
-	public ModelAndView openFaqUpdate(CommandMap commandMap) throws Exception{
+	public ModelAndView openFaqUpdate(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/faqUpdate");
 		
-		Map<String,Object> map = faqService.selectFaqDetail(commandMap.getMap());
+		Map<String,Object> map = faqService.selectFaqDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 		mv.addObject("list", map.get("list"));
 		
@@ -85,20 +85,20 @@ public class FaqController {
 	}
 	
 	@RequestMapping(value="/faq/updateFaq.do")
-	public ModelAndView updateFaq(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView updateFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqDetail.do");
 		
-		faqService.updateFaq(commandMap.getMap(), request);
+		faqService.updateFaq(ParamMap.getMap(), request);
 		
-		mv.addObject("NOTICE_NO", commandMap.get("NOTICE_NO"));
+		mv.addObject("NOTICE_NO", ParamMap.get("NOTICE_NO"));
 		return mv;
 	}
 	
 	@RequestMapping(value="/faq/deleteFaq.do")
-	public ModelAndView deleteFaq(CommandMap commandMap) throws Exception{
+	public ModelAndView deleteFaq(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqList.do");
 		
-		faqService.deleteFaq(commandMap.getMap());
+		faqService.deleteFaq(ParamMap.getMap());
 		
 		return mv;
 	}

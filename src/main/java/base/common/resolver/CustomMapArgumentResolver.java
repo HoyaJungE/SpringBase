@@ -10,9 +10,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import base.common.common.CommandMap;
-
-
+import base.common.common.ParamMap;
 
 //전송된 데이터를 map에다 넣기위해 
 //xml에 등록해야함 CustomMapArgumentResolver
@@ -21,14 +19,14 @@ public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 		
-		return CommandMap.class.isAssignableFrom(parameter.getParameterType());
+		return ParamMap.class.isAssignableFrom(parameter.getParameterType());
 	}
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
-		CommandMap commandMap = new CommandMap();
+		ParamMap paramMap = new ParamMap();
 		
 		HttpServletRequest request = (HttpServletRequest) webRequest.getNativeRequest();
 		Enumeration<?> enumeration = request.getParameterNames(); // 이름을 꺼내옴
@@ -39,10 +37,10 @@ public class CustomMapArgumentResolver implements HandlerMethodArgumentResolver 
 			key = (String) enumeration.nextElement();
 			values = request.getParameterValues(key);
 			if(values != null){
-				commandMap.put(key, (values.length > 1) ? values:values[0] );
+				paramMap.put(key, (values.length > 1) ? values:values[0] );
 			}
 		}
-		return commandMap;
+		return paramMap;
 	}
 
 }

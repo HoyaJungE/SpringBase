@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import base.board.notice.service.NoticeService;
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 @Controller
 public class NoticeController {
@@ -22,17 +22,17 @@ public class NoticeController {
 	private NoticeService noticeService;
 	
 	@RequestMapping(value="/notice/openNoticeList.do")
-    public ModelAndView openNoticeList(CommandMap commandMap) throws Exception{
+    public ModelAndView openNoticeList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/board/noticeList");
     	
     	return mv;
     }
 	
 	@RequestMapping(value="/notice/selectNoticeList.do")
-    public ModelAndView selectNoticeList(CommandMap commandMap) throws Exception{
+    public ModelAndView selectNoticeList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
-    	List<Map<String,Object>> list = noticeService.selectNoticeList(commandMap.getMap());
+    	List<Map<String,Object>> list = noticeService.selectNoticeList(ParamMap.getMap());
     	mv.addObject("list", list);
     	if(list.size() > 0){
     		mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
@@ -45,26 +45,26 @@ public class NoticeController {
     }
 	
 	@RequestMapping(value="/notice/openNoticeWrite.do")
-	public ModelAndView openNoticeWrite(CommandMap commandMap) throws Exception{
+	public ModelAndView openNoticeWrite(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/noticeWrite");
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/notice/insertNotice.do")
-	public ModelAndView insertNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView insertNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
 		
-		noticeService.insertNotice(commandMap.getMap(), request);
+		noticeService.insertNotice(ParamMap.getMap(), request);
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/notice/openNoticeDetail.do")
-	public ModelAndView openNoticeDetail(CommandMap commandMap) throws Exception{
+	public ModelAndView openNoticeDetail(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/noticeDetail");
 		
-		Map<String,Object> map = noticeService.selectNoticeDetail(commandMap.getMap());
+		Map<String,Object> map = noticeService.selectNoticeDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 		mv.addObject("list", map.get("list"));
 		
@@ -72,10 +72,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice/openNoticeUpdate.do")
-	public ModelAndView openNoticeUpdate(CommandMap commandMap) throws Exception{
+	public ModelAndView openNoticeUpdate(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/noticeUpdate");
 		
-		Map<String,Object> map = noticeService.selectNoticeDetail(commandMap.getMap());
+		Map<String,Object> map = noticeService.selectNoticeDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 		mv.addObject("list", map.get("list"));
 		
@@ -83,20 +83,20 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="/notice/updateNotice.do")
-	public ModelAndView updateNotice(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView updateNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeDetail.do");
 		
-		noticeService.updateNotice(commandMap.getMap(), request);
+		noticeService.updateNotice(ParamMap.getMap(), request);
 		
-		mv.addObject("NOTICE_NO", commandMap.get("NOTICE_NO"));
+		mv.addObject("NOTICE_NO", ParamMap.get("NOTICE_NO"));
 		return mv;
 	}
 	
 	@RequestMapping(value="/notice/deleteNotice.do")
-	public ModelAndView deleteNotice(CommandMap commandMap) throws Exception{
+	public ModelAndView deleteNotice(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
 		
-		noticeService.deleteNotice(commandMap.getMap());
+		noticeService.deleteNotice(ParamMap.getMap());
 		
 		return mv;
 	}

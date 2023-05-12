@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.common.dao.AbstractDao;
 
 
@@ -41,30 +41,30 @@ public class MyDAO extends AbstractDao {
 	}
 	
 
-	public List<Map<String, Object>> myPointList(CommandMap commandMap) {
-		return sqlSession.selectList("my.myPointList",commandMap.getMap());
+	public List<Map<String, Object>> myPointList(ParamMap ParamMap) {
+		return sqlSession.selectList("my.myPointList",ParamMap.getMap());
 	}
-	public List<Map<String, Object>> myCouponList(CommandMap commandMap) {
-		return sqlSession.selectList("my.myCouponList",commandMap.getMap());
+	public List<Map<String, Object>> myCouponList(ParamMap ParamMap) {
+		return sqlSession.selectList("my.myCouponList",ParamMap.getMap());
 	}
-	public List<Map<String, Object>> myLikeList(CommandMap commandMap) {
-		return sqlSession.selectList("my.myLikeList",commandMap.getMap());
+	public List<Map<String, Object>> myLikeList(ParamMap ParamMap) {
+		return sqlSession.selectList("my.myLikeList",ParamMap.getMap());
 	}
-	public void goodsLikeDelete(CommandMap commandMap) {
-		sqlSession.delete("goods.deleteGoodsLike", commandMap.getMap());
+	public void goodsLikeDelete(ParamMap ParamMap) {
+		sqlSession.delete("goods.deleteGoodsLike", ParamMap.getMap());
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> myDash(CommandMap map) throws Exception { //adminMain대쉬보드 
+	public List<Map<String,Object>> myDash(ParamMap map) throws Exception { //adminMain대쉬보드 
 		return sqlSession.selectList("my.my_side",map);
 	}
 	
-	public List<Map<String, Object>> myQnaList(CommandMap commandMap) {
-		return sqlSession.selectList("my.myGoodsQnaList",commandMap.getMap());
+	public List<Map<String, Object>> myQnaList(ParamMap ParamMap) {
+		return sqlSession.selectList("my.myGoodsQnaList",ParamMap.getMap());
 	}
 	
-	public List<Map<String, Object>> myReviewList(CommandMap commandMap) {
-		return sqlSession.selectList("my.myReviewList",commandMap.getMap());
+	public List<Map<String, Object>> myReviewList(ParamMap ParamMap) {
+		return sqlSession.selectList("my.myReviewList",ParamMap.getMap());
 	}
 
 

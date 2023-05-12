@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import base.admin.coupon.service.AdminCouponService;
 import base.admin.event.service.AdminEventService;
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 @Controller
 public class AdminEventController {
@@ -37,15 +37,15 @@ public class AdminEventController {
 	
 	// start    Event List View  => http://localhost:8080/stu/adminEventList.do
 	@RequestMapping(value = "/adminEventList.do", method = RequestMethod.GET)
-	public ModelAndView eventList(CommandMap commandMap) throws Exception {
+	public ModelAndView eventList(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/event/eventList");
 		return mv;
 	}
 	@RequestMapping(value = "/adminEventList.do", method = RequestMethod.POST)
-	public ModelAndView searchEventList(CommandMap commandMap) throws Exception {
+	public ModelAndView searchEventList(ParamMap ParamMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("jsonView");
-		List<Map<String, Object>> list = adminEventService.eventList(commandMap.getMap());
+		List<Map<String, Object>> list = adminEventService.eventList(ParamMap.getMap());
 		
 		mv.addObject("list", list);
 		
@@ -83,7 +83,7 @@ public class AdminEventController {
 	
 	// startEvent old DetailForm
 	@RequestMapping(value = "/adminEventDetailForm.do", method = RequestMethod.POST)
-	public ModelAndView eventDetailForm(CommandMap commandMap) throws Exception {
+	public ModelAndView eventDetailForm(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/event/eventDetail");
 		return mv;
 	}
@@ -91,9 +91,9 @@ public class AdminEventController {
 	//Event Detail View (이벤트 수정)
 	@RequestMapping(value = "/adminEventDetail.do")
 	@ResponseBody
-	public ModelAndView eventDetail(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView eventDetail(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
-		Object EVENT_NO = commandMap.get("EVENT_NO");
+		Object EVENT_NO = ParamMap.get("EVENT_NO");
 		
 		if (EVENT_NO == null || EVENT_NO == "") {
 			ModelAndView mv = new ModelAndView("redirect:/adminCouponList.do");
@@ -101,7 +101,7 @@ public class AdminEventController {
 		} else {
 			ModelAndView mv = new ModelAndView("jsonView");
 			
-			List<Map<String, Object>> list = adminEventService.eventDetail(commandMap.getMap());
+			List<Map<String, Object>> list = adminEventService.eventDetail(ParamMap.getMap());
 			mv.addObject("list", list);
 			
 			return mv;
@@ -115,24 +115,24 @@ public class AdminEventController {
 	
 	//이벤트 등록 및 업데이트
 	@RequestMapping(value = "/adminEventInU.do", method = RequestMethod.POST)
-	public ModelAndView adminEventInU(CommandMap commandMap, HttpServletRequest request)
+	public ModelAndView adminEventInU(ParamMap ParamMap, HttpServletRequest request)
 	throws Exception {
 		
 		//전달된 타입에 따라 (insert-신규, modify-수정) 으로 구분해서 전달
-		Object type = commandMap.get("TYPE");
+		Object type = ParamMap.get("TYPE");
 		
 		//기본 mv, 변수 선언
 		ModelAndView mv = new ModelAndView("/event/redirect");
 		String msg = "", url = "", a_link_coupon_state = "";
-		String gubun = (String) commandMap.get("EVENT_GUBUN"); // 0 비공개, 1 공개
+		String gubun = (String) ParamMap.get("EVENT_GUBUN"); // 0 비공개, 1 공개
 		
 		//S A태그의 쿠폰번호 가져오는 작업
-		String content = (String) commandMap.get("EVENT_CONTENT"); // 저장된 본문을 불러옴
+		String content = (String) ParamMap.get("EVENT_CONTENT"); // 저장된 본문을 불러옴
 		int start_index = content.indexOf("<a href=\"/stu/couponSave.do?COUPON_NO="),   last_index = content.lastIndexOf("<a href=\"/stu/couponSave.do?COUPON_NO="), a_link_coupon_no = 0;
 		if (start_index >= 0) {
 			a_link_coupon_no = Integer.parseInt(content.substring(start_index, start_index+40).replaceAll("[^0-9]","")); //숫자만 추출
-			commandMap.put("COUPON_NO", a_link_coupon_no);
-			a_link_coupon_state = adminCouponService.coupon_state(commandMap.getMap());
+			ParamMap.put("COUPON_NO", a_link_coupon_no);
+			a_link_coupon_state = adminCouponService.coupon_state(ParamMap.getMap());
 		}
 		System.out.println("state : "+a_link_coupon_state);
 		//E A태그의 쿠폰번호 가져오는 작업
@@ -142,7 +142,7 @@ public class AdminEventController {
 			
 			if ("end".equals(a_link_coupon_state)) {
 				if ("0".equals(gubun)) { //비공개로 설정할 경우
-					adminEventService.adminEventInU(commandMap.getMap(), request); //종료된 쿠폰을 a태그로 걸더라도 비공개로 저장하는 경우 서비스 전달.
+					adminEventService.adminEventInU(ParamMap.getMap(), request); //종료된 쿠폰을 a태그로 걸더라도 비공개로 저장하는 경우 서비스 전달.
 					msg = "정상처리되었습니다";
 					url = "/adminEventList.do";
 				} else { //공개로 설정할 경우
@@ -153,7 +153,7 @@ public class AdminEventController {
 			}
 			else if (a_link_coupon_state != "end") {
 				if (start_index == last_index) { //등록된 쿠폰no a태그의  0~1개 일 경우 in/up처리 후 정상 msg 리턴
-					adminEventService.adminEventInU(commandMap.getMap(), request); //정상인 경우만 서비스 전달.
+					adminEventService.adminEventInU(ParamMap.getMap(), request); //정상인 경우만 서비스 전달.
 					msg = "정상처리되었습니다";
 					url = "/adminEventList.do";
 				}
@@ -184,13 +184,13 @@ public class AdminEventController {
 		return mv;
 	}
 	@RequestMapping(value = "/event/list.do", method = RequestMethod.POST)
-	public ModelAndView eventListView_POST(CommandMap commandMap, HttpServletRequest request)
+	public ModelAndView eventListView_POST(ParamMap ParamMap, HttpServletRequest request)
 	throws Exception {
 		ModelAndView mv = new ModelAndView("jsonView");
 		
 		//쇼핑몰 메인에 이벤트 리스트가 불러지기 전 종료된 쿠폰의 이벤트를 비공개로 업데이트 할 필요성이 있음..
 		
-		List<Map<String, Object>> list = adminEventService.common_eventList(commandMap.getMap());
+		List<Map<String, Object>> list = adminEventService.common_eventList(ParamMap.getMap());
 		
 		mv.addObject("list", list);
 		
@@ -207,17 +207,17 @@ public class AdminEventController {
 	
 	
 	@RequestMapping(value = "/event/detailViewForm.do", method = RequestMethod.POST)
-	public ModelAndView detailViewForm(CommandMap commandMap, HttpServletRequest request)
+	public ModelAndView detailViewForm(ParamMap ParamMap, HttpServletRequest request)
 	throws Exception {
 		ModelAndView mv = new ModelAndView("/event/main_eventDetail");
 		return mv;
 	}
 	
 	@RequestMapping(value = "/event/detail.do")
-	public ModelAndView detailView(CommandMap commandMap, HttpServletRequest request)
+	public ModelAndView detailView(ParamMap ParamMap, HttpServletRequest request)
 	throws Exception {
 		
-		Object EVENT_NO = commandMap.get("EVENT_NO");
+		Object EVENT_NO = ParamMap.get("EVENT_NO");
 		
 		if (EVENT_NO == null || EVENT_NO == "") {
 			ModelAndView mv = new ModelAndView("redirect:/event/list.do");
@@ -225,7 +225,7 @@ public class AdminEventController {
 		} else {
 			ModelAndView mv = new ModelAndView("jsonView");
 			
-			List<Map<String, Object>> list = adminEventService.common_eventDetail(commandMap.getMap());
+			List<Map<String, Object>> list = adminEventService.common_eventDetail(ParamMap.getMap());
 			mv.addObject("list", list);
 			
 			return mv;

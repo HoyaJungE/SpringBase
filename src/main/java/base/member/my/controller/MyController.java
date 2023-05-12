@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.member.my.service.MyService;
 
 
@@ -30,7 +30,7 @@ public class MyController {
 
 	// 마이페이지 메인
 	@RequestMapping(value = "/my/myMain.do", method = RequestMethod.GET)
-	public ModelAndView orderList(Map<String, Object> commandMap) throws Exception {
+	public ModelAndView orderList(Map<String, Object> ParamMap) throws Exception {
 
 		ModelAndView mv = new ModelAndView("my/myMain");
 
@@ -47,14 +47,14 @@ public class MyController {
 
 	//회원 정보 수정 폼 이동
 	@RequestMapping(value = "/my/memberModify.do", method = RequestMethod.POST)
-	public ModelAndView select(CommandMap commandMap, HttpSession session) throws Exception {
+	public ModelAndView select(ParamMap ParamMap, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("비빌번호 입력시"+ commandMap.getMap());
+		System.out.println("비빌번호 입력시"+ ParamMap.getMap());
 		//세션값 가져오기
 		String id = (String) session.getAttribute("SESSION_ID");
-		commandMap.put("MEMBER_ID", id);
+		ParamMap.put("MEMBER_ID", id);
 
-		String pw = (String) myService.pwdCheck(commandMap.getMap(), "MEMBER_ID");
+		String pw = (String) myService.pwdCheck(ParamMap.getMap(), "MEMBER_ID");
 		Map<String, Object> MemberInfo;
 
 		if (id.equals(pw)) {
@@ -72,38 +72,38 @@ public class MyController {
 
 	// 회원 정보 수정 처리
 	@RequestMapping(value="/my/memberModifyAction.do",method=RequestMethod.POST)
-	public ModelAndView memberModifyAction(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView memberModifyAction(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("my/myOrderList");
-			System.out.println("수정클릭"+commandMap.getMap());
+			System.out.println("수정클릭"+ParamMap.getMap());
 			Object MEMBER_NO = "";
 			
 			//세션값 가져오기
 			HttpSession session = request.getSession();
 			MEMBER_NO = (Object)session.getAttribute("SESSION_NO");
 	
-			commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제
-			commandMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
+			ParamMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제
+			ParamMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
 			
 			// 이메일, SMS 수신 여부
-			String email_agree = (String)commandMap.get("EMAIL_AGREE");
-			String sms_agree = (String)commandMap.get("SMS_AGREE");
+			String email_agree = (String)ParamMap.get("EMAIL_AGREE");
+			String sms_agree = (String)ParamMap.get("SMS_AGREE");
 			
 			// 체크를 하지 않으면 '0' 으로 set 후 넘김
 			if(email_agree == null) {
 				email_agree = "0";
-				commandMap.put("EMAIL_AGREE", email_agree);
+				ParamMap.put("EMAIL_AGREE", email_agree);
 			}
 			if(sms_agree == null) {
 				sms_agree = "0";
-				commandMap.put("SMS_AGREE", sms_agree);
+				ParamMap.put("SMS_AGREE", sms_agree);
 			}
 		
 			// 이메일
 			String email = request.getParameter("MEMBER_EMAIL");
 
 			//System.out.println("MEMBER_EMAIL : " + email);				
-			commandMap.remove("MEMBER_EMAIL"); // 기존 MEMBER_EMAIL 데이터 삭제
-			commandMap.put("MEMBER_EMAIL", email); // 위에 정의한 email로 put				
+			ParamMap.remove("MEMBER_EMAIL"); // 기존 MEMBER_EMAIL 데이터 삭제
+			ParamMap.put("MEMBER_EMAIL", email); // 위에 정의한 email로 put				
 			// 생일				
 			// birth = 년  + 월  + 일;
 			String birth = request.getParameter("MEMBER_BIRTH") 
@@ -112,17 +112,17 @@ public class MyController {
 			
 			//System.out.println("MEMBER_BIRTH : " + birth);
 		
-			commandMap.remove("MEMBER_BIRTH"); // 기존 MEMBER_BIRTH 데이터 삭제
-			commandMap.put("MEMBER_BIRTH", birth); // 위에 정의한 birth로 put				
+			ParamMap.remove("MEMBER_BIRTH"); // 기존 MEMBER_BIRTH 데이터 삭제
+			ParamMap.put("MEMBER_BIRTH", birth); // 위에 정의한 birth로 put				
 
-			 myService.memberModifyAction(commandMap.getMap());
+			 myService.memberModifyAction(ParamMap.getMap());
 
 		return mv;
 	}
 	
 	// 회원 탈퇴 폼
 	@RequestMapping(value="/my/memberDelete.do")
-	public ModelAndView memberDelete(Map<String, Object> commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView memberDelete(Map<String, Object> ParamMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("my/memberDelete");
 		
 		return mv;
@@ -131,12 +131,12 @@ public class MyController {
 	// 회원 탈퇴 처리
 	@RequestMapping(value="/my/memberDeleteAction.do")
 	@ResponseBody
-	public ModelAndView memberDeleteAction(Map<String, Object> commandMap, HttpSession session, HttpServletRequest request) throws Exception{
+	public ModelAndView memberDeleteAction(Map<String, Object> ParamMap, HttpSession session, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("jsonView");
 		
 		String id = (String)session.getAttribute("SESSION_ID");
-		commandMap.put("MEMBER_ID", id);
-		myService.memberDelete(commandMap);
+		ParamMap.put("MEMBER_ID", id);
+		myService.memberDelete(ParamMap);
 		
 		session.removeAttribute("SESSION_ID");
 		session.removeAttribute("SESSION_NO");
@@ -154,7 +154,7 @@ public class MyController {
 	
 	//포인트 리스트 출력
 	@RequestMapping(value="/my/myPointList.do")
-	public ModelAndView myPointList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView myPointList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myPointList");
 		
@@ -162,12 +162,12 @@ public class MyController {
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
 		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-		commandMap.remove("MEMBER_NO"); 
+		ParamMap.remove("MEMBER_NO"); 
 		// 기존 회원번호 데이터 삭제 
-		commandMap.put("MEMBER_NO", MEMBER_NO); 
+		ParamMap.put("MEMBER_NO", MEMBER_NO); 
 		// 세션 값으로 적용
 		
-		List<Map<String,Object>> list = myService.myPointList(commandMap);
+		List<Map<String,Object>> list = myService.myPointList(ParamMap);
 		//POINT_NO, POINT_VAL, POINT_SAVE_DATE, POINT_USE_DATE, POINT_TOTAL
 		
 		mv.addObject("list", list);
@@ -178,7 +178,7 @@ public class MyController {
 	
 	//쿠폰 리스트 출력
 		@RequestMapping(value="/my/myCouponList.do")
-		public ModelAndView myCouponList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		public ModelAndView myCouponList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 			
 			ModelAndView mv = new ModelAndView("my/myCouponList");
 			
@@ -186,12 +186,12 @@ public class MyController {
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
 			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-			commandMap.remove("MEMBER_NO"); 
+			ParamMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
-			commandMap.put("MEMBER_NO", MEMBER_NO); 
+			ParamMap.put("MEMBER_NO", MEMBER_NO); 
 			// 세션 값으로 적용
 			 
-			List<Map<String,Object>> list = myService.myCouponList(commandMap);
+			List<Map<String,Object>> list = myService.myCouponList(ParamMap);
 			//COUPON_STATUS_NO, COUPON_USE_STATE, COUPON_ISSUE_DATE, COUPON_USE_DATE, 
 			//COUPON_NO, COUPON_ID, COUPON_VALUE, COUPON_S_VALIDITY, COUPON_E_VALIDITY
 			
@@ -202,7 +202,7 @@ public class MyController {
 		
 		//좋아요 리스트 출력
 		@RequestMapping(value="/my/myLikeList.do")
-		public ModelAndView myLikeList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		public ModelAndView myLikeList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 					
 			ModelAndView mv = new ModelAndView("my/myLikeList");
 					
@@ -210,12 +210,12 @@ public class MyController {
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
 			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-			commandMap.remove("MEMBER_NO"); 
+			ParamMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
-			commandMap.put("MEMBER_NO", MEMBER_NO); 
+			ParamMap.put("MEMBER_NO", MEMBER_NO); 
 			// 세션 값으로 적용
 					 
-			List<Map<String,Object>> list = myService.myLikeList(commandMap);
+			List<Map<String,Object>> list = myService.myLikeList(ParamMap);
 			//LIKE_NO, GOODS_NO, GOODS_NAME, GOODS_SELL_PRICE, GOODS_THUMBNAIL
 					
 			mv.addObject("list", list);
@@ -225,28 +225,28 @@ public class MyController {
 		
 		//좋아요 삭제
 		@RequestMapping(value="/my/goodsLikeDelete.do")
-		public ModelAndView goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		public ModelAndView goodsLikeDelete(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 			ModelAndView mv = new ModelAndView("redirect:/my/myLikeList.do");
 			
 			Object MEMBER_NO = ""; 
 			//세션값 가져오기 
 			HttpSession session = request.getSession(); 
 			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-			commandMap.remove("MEMBER_NO"); 
+			ParamMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
-			commandMap.put("MEMBER_NO", MEMBER_NO); 
+			ParamMap.put("MEMBER_NO", MEMBER_NO); 
 			// 세션 값으로 적용
-			myService.goodsLikeDelete(commandMap, request);
+			myService.goodsLikeDelete(ParamMap, request);
 			return mv;
 		}
 
 	// 마이페이지 사이드바
 	@RequestMapping(value="/my_side.do")
-	public ModelAndView myView(CommandMap commandMap) throws Exception {
+	public ModelAndView myView(ParamMap ParamMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("mypage");
 		
-		List<Map<String,Object>> mydashList = myService.myDash(commandMap);
+		List<Map<String,Object>> mydashList = myService.myDash(ParamMap);
 		System.out.println("mydashList : "+mydashList);
 		mv.addObject("mydashList", mydashList);
 			
@@ -255,7 +255,7 @@ public class MyController {
 	
 	//상품QNA리스트 페이지 열기
 	@RequestMapping(value="/my/openMyGoodsQna.do")
-    public ModelAndView openQnaList(CommandMap commandMap) throws Exception{
+    public ModelAndView openQnaList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/my/myGoodsQnaList");
     	
     	return mv;
@@ -263,15 +263,15 @@ public class MyController {
 	
 	//나의 상품QNA 출력
 	@RequestMapping(value="/my/myGoodsQnaList.do")
-	public ModelAndView myGoodsQnaList(CommandMap commandMap, HttpServletRequest request) throws Exception {			
+	public ModelAndView myGoodsQnaList(ParamMap ParamMap, HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView("jsonView");
 				
 		Object MEMBER_NO = ""; //세션값 가져오기 
 		HttpSession session = request.getSession(); 
 		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-		commandMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 
-		commandMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
-		List<Map<String,Object>> list = myService.myGoodsQnaList(commandMap);	
+		ParamMap.remove("MEMBER_NO"); // 기존 회원번호 데이터 삭제 
+		ParamMap.put("MEMBER_NO", MEMBER_NO); // 세션 값으로 적용
+		List<Map<String,Object>> list = myService.myGoodsQnaList(ParamMap);	
 		mv.addObject("list", list);
 		if (list.size() > 0) {
 			mv.addObject("TOTAL", list.get(0).get("TOTAL_COUNT"));
@@ -283,7 +283,7 @@ public class MyController {
 	
 	//나의 상품후기 리스트 페이지 열기
 		@RequestMapping(value="/my/openMyReview.do")
-	    public ModelAndView openReviewList(CommandMap commandMap) throws Exception{
+	    public ModelAndView openReviewList(ParamMap ParamMap) throws Exception{
 	    	ModelAndView mv = new ModelAndView("/my/myReviewList");
 	    	
 	    	return mv;
@@ -291,7 +291,7 @@ public class MyController {
 		
 		//나의 상품후기 출력
 		@RequestMapping(value="/my/myReviewList.do")
-		public ModelAndView myReviewList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+		public ModelAndView myReviewList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 					
 			ModelAndView mv = new ModelAndView("jsonView");
 					
@@ -299,12 +299,12 @@ public class MyController {
 				//세션값 가져오기 
 			HttpSession session = request.getSession(); 
 			MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-			commandMap.remove("MEMBER_NO"); 
+			ParamMap.remove("MEMBER_NO"); 
 			// 기존 회원번호 데이터 삭제 
-			commandMap.put("MEMBER_NO", MEMBER_NO); 
+			ParamMap.put("MEMBER_NO", MEMBER_NO); 
 			// 세션 값으로 적용
 					 
-			List<Map<String,Object>> list = myService.myReviewList(commandMap);
+			List<Map<String,Object>> list = myService.myReviewList(ParamMap);
 			
 
 			System.out.println(list);

@@ -1,7 +1,6 @@
 package base.common.main.controller;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -9,13 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.shop.goods.service.GoodsService;
 
 @Controller
@@ -28,11 +24,11 @@ public class MainController {
 	
 	
 	@RequestMapping(value = "main.do")
-	public ModelAndView openMainList(CommandMap commandMap, HttpServletRequest request)  // 메인 
+	public ModelAndView openMainList(ParamMap ParamMap, HttpServletRequest request)  // 메인 
 			throws Exception {
 		ModelAndView mv = new ModelAndView("main");
 		
-		mv.addObject("IDX", commandMap.getMap().get("IDX"));
+		mv.addObject("IDX", ParamMap.getMap().get("IDX"));
 		
 		String filePath_temp = request.getContextPath() + "/file/";
 		mv.addObject("path", filePath_temp);
@@ -41,12 +37,12 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "mainList.do")
-	public ModelAndView selectMainList(CommandMap commandMap, HttpServletRequest request)  // 메인 json
+	public ModelAndView selectMainList(ParamMap ParamMap, HttpServletRequest request)  // 메인 json
 			throws Exception {
 
 		ModelAndView mv = new ModelAndView("jsonView");
 
-		List<Map<String,Object>> newList = goodsService.newGoodsList(commandMap.getMap());
+		List<Map<String,Object>> newList = goodsService.newGoodsList(ParamMap.getMap());
 		newList.get(0);
 		if (newList.size() != 0) {
 			newList.get(0).get("");
@@ -59,7 +55,7 @@ public class MainController {
 			mv.addObject("TOTAL", 0);
 		}
 		
-		List<Map<String,Object>> bestList = goodsService.bestGoodsList(commandMap.getMap());
+		List<Map<String,Object>> bestList = goodsService.bestGoodsList(ParamMap.getMap());
 		bestList.get(0);
 		if (bestList.size() != 0) {
 			bestList.get(0).get("");
@@ -79,17 +75,17 @@ public class MainController {
 	
 	/*
 	 * @RequestMapping(value="main.do" ,method = RequestMethod.GET) // url public
-	 * ModelAndView mainView(CommandMap commandMap) throws Exception { // 메인 상품 리스트
+	 * ModelAndView mainView(ParamMap ParamMap) throws Exception { // 메인 상품 리스트
 	 * 
 	 * ModelAndView mv = new ModelAndView("main"); // 보낼 url
 	 * 
 	 * List<Map<String,Object>> newList =
-	 * goodsService.newGoodsList(commandMap.getMap()); mv.addObject("newList",
+	 * goodsService.newGoodsList(ParamMap.getMap()); mv.addObject("newList",
 	 * newList);
 	 * 
 	 * 
 	 * List<Map<String,Object>> bestList =
-	 * goodsService.bestGoodsList(commandMap.getMap()); mv.addObject("bestList",
+	 * goodsService.bestGoodsList(ParamMap.getMap()); mv.addObject("bestList",
 	 * bestList);
 	 * 
 	 * return mv; }

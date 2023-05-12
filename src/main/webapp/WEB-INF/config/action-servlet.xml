@@ -8,13 +8,13 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
        
-   <!-- 자동스캔 first들어간 패키지를 다 찾음 -->    
+   <!-- 자동스캔 base들어간 패키지를 다 찾음 -->    
    <context:component-scan base-package="base" >
    
    </context:component-scan>
    
    <mvc:annotation-driven>
-   <!-- 전송된 데이터를 commandMap으로 다 받을수 있음 -->
+   		<!-- 전송된 데이터를 commandMap으로 다 받을수 있음 -->
    		<mvc:argument-resolvers>
    			<bean class="base.common.resolver.CustomMapArgumentResolver"/>
    		</mvc:argument-resolvers>

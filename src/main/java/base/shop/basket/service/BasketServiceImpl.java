@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.shop.basket.dao.BasketDAO;
 import base.shop.goods.dao.GoodsDAO;
 
@@ -25,42 +25,42 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 	private BasketDAO basketDao;
 
 	@Override
-	public List<Map<String, Object>> basketList(CommandMap commandMap) throws Exception {
-		return (List<Map<String, Object>>) basketDao.basketList(commandMap);
+	public List<Map<String, Object>> basketList(ParamMap ParamMap) throws Exception {
+		return (List<Map<String, Object>>) basketDao.basketList(ParamMap);
 	}
 
 	@Override
-	public void basketModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		basketDao.basketModify(commandMap);
+	public void basketModify(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		basketDao.basketModify(ParamMap);
 		
 	}
 
 	@Override
-	public void basketDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		basketDao.basketDelete(commandMap);
+	public void basketDelete(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		basketDao.basketDelete(ParamMap);
 		
 	}
 
 	@Override
-	public void basketAllDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		basketDao.basketAllDelete(commandMap);
+	public void basketAllDelete(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		basketDao.basketAllDelete(ParamMap);
 	}
 
 	@Override
-	public Map<String, Object> selectGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		return basketDao.selectGoodsLike(commandMap);
+	public Map<String, Object> selectGoodsLike(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		return basketDao.selectGoodsLike(ParamMap);
 	}
 
 	@Override
-	public void insertGoodsLike(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public void insertGoodsLike(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
-		basketDao.insertGoodsLike(commandMap);
+		basketDao.insertGoodsLike(ParamMap);
 		
 	}
 
 	@Override
-	public List<Map<String, Object>> basketSelectList(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		return (List<Map<String, Object>>) basketDao.basketSelectList(commandMap);
+	public List<Map<String, Object>> basketSelectList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		return (List<Map<String, Object>>) basketDao.basketSelectList(ParamMap);
 	}
 
 	

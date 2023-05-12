@@ -56,10 +56,10 @@
 
 	<script type="text/javascript">
       $(document).ready(function() {
-         fn_selectMenuList(1);         
+         fn_selectMenuList();         
       });
 
-      function fn_selectMenuList(pageNo) {
+      function fn_selectMenuList() {
     	  var body = $("table>tbody");
     	  var str = "";
     	  $.ajax({
@@ -94,7 +94,6 @@
   				body.append(str);
   			}
     	  });
-    	  
       }
    </script>
 </body>

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.shop.order.dao.OrderDAO;
 
 @Service("orderService")
@@ -21,36 +21,36 @@ Logger log = Logger.getLogger(this.getClass()); // 로그
 
 	//주문페이지에서 필요한 정보 검색
 	@Override
-	public Map<String, Object> orderMemberInfo(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		return (Map<String, Object>) orderDao.orderMemberInfo(commandMap);
+	public Map<String, Object> orderMemberInfo(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		return (Map<String, Object>) orderDao.orderMemberInfo(ParamMap);
 	}
 
 	//해당 회원이 보유한 쿠폰 검색
 	@Override
-	public List<Map<String, Object>> memberCoupon(CommandMap commandMap) throws Exception {
-		return (List<Map<String, Object>>) orderDao.memberCoupon(commandMap);
+	public List<Map<String, Object>> memberCoupon(ParamMap ParamMap) throws Exception {
+		return (List<Map<String, Object>>) orderDao.memberCoupon(ParamMap);
 	}
 
 	//주문테이블 입력
 	@Override
-	public void insertOrder(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		orderDao.insertOrder(commandMap);
+	public void insertOrder(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		orderDao.insertOrder(ParamMap);
 	}
 	
 	//입력한 주문 번호검색(주문완료 페이지에서 주문번호 보여주기)
-	@Override public Map<String, Object> selectOrder(CommandMap commandMap, HttpServletRequest request) throws Exception { 
-		return (Map<String, Object>) orderDao.selectOrder(commandMap); 
+	@Override public Map<String, Object> selectOrder(ParamMap ParamMap, HttpServletRequest request) throws Exception { 
+		return (Map<String, Object>) orderDao.selectOrder(ParamMap); 
 	}
 
 	@Override
-	public void orderModify(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		orderDao.orderModify(commandMap);
+	public void orderModify(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		orderDao.orderModify(ParamMap);
 		
 	}
 
 	@Override
-	public void updateMember(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		orderDao.updateMember(commandMap);
+	public void updateMember(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		orderDao.updateMember(ParamMap);
 		
 	}
 	

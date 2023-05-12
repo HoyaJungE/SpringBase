@@ -5,7 +5,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.common.dao.AbstractDao;
 
 @Repository("adminDao")
@@ -14,104 +14,104 @@ public class AdminDAO extends AbstractDao{
 	// 굳이 따로 빼서 처리가 필요없다면 adminDao에서 커넥션을 받아와 바로 처리한다
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> dashBoard(CommandMap map) throws Exception { //adminMain대쉬보드 
+	public List<Map<String,Object>> dashBoard(ParamMap map) throws Exception { //adminMain대쉬보드 
 		
 		return sqlSession.selectList("admin.dash_count",map);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<Map<String,Object>> order_admin_a(CommandMap map) throws Exception { //admin주문현황 
+	public List<Map<String,Object>> order_admin_a(ParamMap map) throws Exception { //admin주문현황 
 		
 		return sqlSession.selectList("admin.order_admin_a",map.getMap());
 	}
 
 	@SuppressWarnings("unchecked")
-	public void order_state(CommandMap map) throws Exception {  // 주문상태 변경
+	public void order_state(ParamMap map) throws Exception {  // 주문상태 변경
 		sqlSession.update("admin.order_state",map.getMap());
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void order_state_ex(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.order_state_ex",commandMap.getMap());
+	public void order_state_ex(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.order_state_ex",ParamMap.getMap());
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> order_detail(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.order_detail", commandMap.getMap());
+	public List<Map<String, Object>> order_detail(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.order_detail", ParamMap.getMap());
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Map<String, Object>> order_detail_sub(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.order_detail_sub", commandMap.getMap());
+	public List<Map<String, Object>> order_detail_sub(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.order_detail_sub", ParamMap.getMap());
 	}
 
-	public List<Map<String, Object>> as_admin_list(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.as_admin_list", commandMap.getMap());
+	public List<Map<String, Object>> as_admin_list(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.as_admin_list", ParamMap.getMap());
 	}
 
-	public void as_cancle_a(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.as_cancle_a",commandMap.getMap());
+	public void as_cancle_a(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.as_cancle_a",ParamMap.getMap());
 	}
 
-	public void order_list_cancle(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.order_list_cancle",commandMap.getMap());
+	public void order_list_cancle(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.order_list_cancle",ParamMap.getMap());
 	}
 
-	public void as_ok_state(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.as_ok_state",commandMap.getMap());
+	public void as_ok_state(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.as_ok_state",ParamMap.getMap());
 	}
 
-	public void as_ok_orderState(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.as_ok_orderState",commandMap.getMap());
+	public void as_ok_orderState(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.as_ok_orderState",ParamMap.getMap());
 	}
 
-	public List<Map<String, Object>> change_form_a(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.change_form_a", commandMap.getMap());
+	public List<Map<String, Object>> change_form_a(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.change_form_a", ParamMap.getMap());
 	}
 
-	public List<Map<String, Object>> change_form_b(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.change_form_b", commandMap.getMap());
+	public List<Map<String, Object>> change_form_b(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.change_form_b", ParamMap.getMap());
 	}
 
-	public void change_detail_insert(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.change_detail_insert",commandMap.getMap());
+	public void change_detail_insert(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.change_detail_insert",ParamMap.getMap());
 	}
 
-	public void change_detail_state(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.change_detail_state",commandMap.getMap());
+	public void change_detail_state(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.change_detail_state",ParamMap.getMap());
 	}
 
-	public void change_goods_att_plus(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.change_goods_att_plus",commandMap.getMap());
+	public void change_goods_att_plus(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.change_goods_att_plus",ParamMap.getMap());
 	}
 
-	public void change_goods_att_minus(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.change_goods_att_minus",commandMap.getMap());
+	public void change_goods_att_minus(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.change_goods_att_minus",ParamMap.getMap());
 	}
 
-	public void as_final_state(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.as_final_state",commandMap.getMap());
+	public void as_final_state(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.as_final_state",ParamMap.getMap());
 	}
 
-	public void change_final_orderState(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.as_final_state",commandMap.getMap());
+	public void change_final_orderState(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.as_final_state",ParamMap.getMap());
 	}
 
-	public void order_list_chagam(CommandMap commandMap) throws Exception {
+	public void order_list_chagam(ParamMap ParamMap) throws Exception {
 		// TODO Auto-generated method stub
-		sqlSession.update("admin.order_list_chagam",commandMap.getMap());
+		sqlSession.update("admin.order_list_chagam",ParamMap.getMap());
 	}
 
-	public void point_chagam(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.point_chagam",commandMap.getMap());
+	public void point_chagam(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.point_chagam",ParamMap.getMap());
 	}
 
-	public List<Map<String, Object>> point_total(CommandMap commandMap) throws Exception {
-		return sqlSession.selectList("admin.point_total", commandMap.getMap());
+	public List<Map<String, Object>> point_total(ParamMap ParamMap) throws Exception {
+		return sqlSession.selectList("admin.point_total", ParamMap.getMap());
 	}
 
-	public void cashback_final_orderState(CommandMap commandMap) throws Exception {
-		sqlSession.update("admin.cashback_final_orderState",commandMap.getMap());
+	public void cashback_final_orderState(ParamMap ParamMap) throws Exception {
+		sqlSession.update("admin.cashback_final_orderState",ParamMap.getMap());
 	}
 
 	@SuppressWarnings("unchecked")

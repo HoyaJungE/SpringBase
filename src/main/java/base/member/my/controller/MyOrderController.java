@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.member.my.service.MyOrderService;
 import base.admin.main.*;
 import base.admin.main.service.AdminMainService;
@@ -33,10 +33,10 @@ Logger log = Logger.getLogger(this.getClass());
 	private AdminMainService adminMainService;
 	
 	/* mvc:annotation-driven을 선언하면 HandlerMethodArgumentResolver가 Map형식일때 동작을 못함 해서
-	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 commandMap */
+	 * 기본 Map형식이 아닌 map을 가지는 클래스를 만들어 사용 ParamMap */
 	// 마이페이지 - 주문리스트
 	@RequestMapping(value="/myOrderList.do")
-	public ModelAndView myOrderList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView myOrderList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("/my/myOrderList");
 		
@@ -44,12 +44,12 @@ Logger log = Logger.getLogger(this.getClass());
 		//세션값 가져오기 
 		HttpSession session = request.getSession(); 
 		MEMBER_NO = (Object)session.getAttribute("SESSION_NO"); 
-		commandMap.remove("MEMBER_NO"); 
+		ParamMap.remove("MEMBER_NO"); 
 		// 기존 회원번호 데이터 삭제 
-		commandMap.put("member_no", MEMBER_NO); 
+		ParamMap.put("member_no", MEMBER_NO); 
 		// 세션 값으로 적용
 		
-		List<Map<String,Object>> my_order = myOrderService.myOrderList(commandMap);
+		List<Map<String,Object>> my_order = myOrderService.myOrderList(ParamMap);
 		mv.addObject("my_order", my_order);
 			
 		return mv;
@@ -57,7 +57,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// 마이페이지 - 수취확인
 	@RequestMapping(value="/order_ok.do")
-	public ModelAndView order_ok(CommandMap commandMap,HttpServletRequest request) throws Exception {
+	public ModelAndView order_ok(ParamMap ParamMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
 
@@ -68,14 +68,14 @@ Logger log = Logger.getLogger(this.getClass());
 			member_no = request.getParameter("mem_no");
 			order_no = request.getParameter("order_no");
 		}
-		commandMap.put("member_no", member_no);
-		commandMap.put("order_no", order_no);
+		ParamMap.put("member_no", member_no);
+		ParamMap.put("order_no", order_no);
 
 		// STATE를 5로변경
-		myOrderService.order_ok(commandMap);
+		myOrderService.order_ok(ParamMap);
 
 		//처리후 다시 리스트 불러오기
-		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(ParamMap);
 		mv.addObject("my_order", my_order);
 
 		System.out.println("mv:" + mv);
@@ -85,7 +85,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// 마이페이지 - 주문취소
 	@RequestMapping(value="/order_cancle.do")
-	public ModelAndView order_cancle(CommandMap commandMap,HttpServletRequest request) throws Exception {
+	public ModelAndView order_cancle(ParamMap ParamMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
 		
@@ -97,16 +97,16 @@ Logger log = Logger.getLogger(this.getClass());
 			member_no = request.getParameter("mem_no");
 			order_no = request.getParameter("order_no");
 		}
-		commandMap.put("member_no", member_no);
-		commandMap.put("order_no", order_no);
+		ParamMap.put("member_no", member_no);
+		ParamMap.put("order_no", order_no);
 		//System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
-		System.out.println(commandMap.getMap());
+		System.out.println(ParamMap.getMap());
 
 		// Sevice단에서 캔슬 로직 처리
-		myOrderService.order_state_cancle(commandMap);
+		myOrderService.order_state_cancle(ParamMap);
 		
 		//처리후 다시 리스트 불러오기
-		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(ParamMap);
 		mv.addObject("my_order", my_order);
 	
 		return mv;
@@ -114,7 +114,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// 마이페이지 - 교환신청폼
 	@RequestMapping(value="/order_as_form.do")
-	public ModelAndView order_as_form(CommandMap commandMap,HttpServletRequest request) throws Exception {
+	public ModelAndView order_as_form(ParamMap ParamMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderChangeForm");
 		
@@ -124,16 +124,16 @@ Logger log = Logger.getLogger(this.getClass());
 			member_no = request.getParameter("mem_no");
 			order_no = request.getParameter("order_no");
 		}
-		commandMap.put("member_no", member_no);
-		commandMap.put("order_no", order_no);
+		ParamMap.put("member_no", member_no);
+		ParamMap.put("order_no", order_no);
 		System.out.println("member_no : "+member_no+" / "+"order_no : "+order_no);
 		
 		// order_list에서 order_no를 통해 주문정보를 가져옴 changeForm_a 리스트맵에 담고
-		List<Map<String, Object>> changeForm_a = myOrderService.changeForm_a(commandMap);
+		List<Map<String, Object>> changeForm_a = myOrderService.changeForm_a(ParamMap);
 		mv.addObject("changeForm_a", changeForm_a);
 		
 		// order_detail에서 order_no를 통해 주문상품 전체를 가져옴 changeForm_b 리스트맵에 담고
-		List<Map<String, Object>> changeForm_b = myOrderService.changeForm_b(commandMap);
+		List<Map<String, Object>> changeForm_b = myOrderService.changeForm_b(ParamMap);
 		mv.addObject("changeForm_b", changeForm_b);
 		System.out.println("changeForm_b :"+changeForm_b);
 
@@ -142,7 +142,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// AS_LIST 테이블에 입력
 	@RequestMapping(value="/order_change.do")
-	public ModelAndView order_change(CommandMap commandMap,HttpServletRequest request) throws Exception {
+	public ModelAndView order_change(ParamMap ParamMap,HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myOrderList");
 		/* 
@@ -151,9 +151,9 @@ Logger log = Logger.getLogger(this.getClass());
 	     */
 		int order_state = Integer.parseInt(request.getParameter("chfOrder_state"));
 		//System.out.println("order_state :"+order_state);
-		int member_no = Integer.parseInt(commandMap.getMap().get("chfMember_no").toString());
+		int member_no = Integer.parseInt(ParamMap.getMap().get("chfMember_no").toString());
 		//System.out.println("member_no :"+member_no);
-		System.out.println("commandMap.getMap() :"+commandMap.getMap());
+		System.out.println("ParamMap.getMap() :"+ParamMap.getMap());
 		
 		
 		/* 현재 테이블에 2개 이상 신청시 한꺼번에 묶어줄 컬럼이 없기 때문에 여러개 신청시 레코드를 여러개 만들고 1개씩 처리 하는 방식으로 함
@@ -163,15 +163,15 @@ Logger log = Logger.getLogger(this.getClass());
 		for(int i=0;i<detail_no.length;i++) {
 			System.out.println("detail_no : "+detail_no[i]);
 			order_detail_no = detail_no[i];
-			commandMap.put("order_state", order_state);
-			commandMap.put("order_detail_no", order_detail_no);
-			myOrderService.order_change(commandMap);
+			ParamMap.put("order_state", order_state);
+			ParamMap.put("order_detail_no", order_detail_no);
+			myOrderService.order_change(ParamMap);
 			
 		}
 		
-		commandMap.put("member_no", member_no);
+		ParamMap.put("member_no", member_no);
 		//처리후 다시 리스트 불러오기
-		List<Map<String, Object>> my_order = myOrderService.myOrderList(commandMap);
+		List<Map<String, Object>> my_order = myOrderService.myOrderList(ParamMap);
 		mv.addObject("my_order", my_order);
 		
 		return mv;
@@ -180,13 +180,13 @@ Logger log = Logger.getLogger(this.getClass());
 	// 비밀번호 가져오기
 	@RequestMapping(value="/password_f.do", method = RequestMethod.POST)
 	@ResponseBody
-	public String password_f(CommandMap commandMap,HttpServletRequest request) throws Exception {
+	public String password_f(ParamMap ParamMap,HttpServletRequest request) throws Exception {
 
 		int member_no = Integer.parseInt(request.getParameter("mem_no"));
 		//System.out.println("컨트롤러member_no :"+member_no);
-		commandMap.put("member_no", member_no);
+		ParamMap.put("member_no", member_no);
 		
-		String dbPasswd = myOrderService.pwd_chk(commandMap);
+		String dbPasswd = myOrderService.pwd_chk(ParamMap);
 		//System.out.println("컨트롤러dbPasswd :"+dbPasswd);
 		
 		return dbPasswd;
@@ -194,7 +194,7 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// 마이페이지 - 교환.환불.as 리스트
 	@RequestMapping(value="/myAsList.do")
-	public ModelAndView myAsList(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView myAsList(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("my/myAsList");
 		
@@ -204,8 +204,8 @@ Logger log = Logger.getLogger(this.getClass());
 		HttpSession session = request.getSession();
 		SESSION_NO = (Object)session.getAttribute("SESSION_NO");
 		
-		commandMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
-		commandMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
+		ParamMap.remove("SESSION_NO"); // 기존 회원번호 데이터 삭제
+		ParamMap.put("SESSION_NO", SESSION_NO); // 세션 값으로 적용 추후에 바꿈
 		*/
 		//테스트용 세션값
 		String member_no = "2";
@@ -215,9 +215,9 @@ Logger log = Logger.getLogger(this.getClass());
 		 * if (member_no == null) { mv.addObject("order_msg", "로그인한 사용자만 이용할수 있습니다.");
 		 * return mv; }
 		 */
-		commandMap.put("member_no", member_no);
+		ParamMap.put("member_no", member_no);
 		
-		List<Map<String,Object>> my_as_list = myOrderService.myAsList(commandMap);
+		List<Map<String,Object>> my_as_list = myOrderService.myAsList(ParamMap);
 		mv.addObject("my_as_list", my_as_list);
 			
 		return mv;
@@ -225,16 +225,16 @@ Logger log = Logger.getLogger(this.getClass());
 	
 	// 주문/변경 상세보기 
 	@RequestMapping(value = "/my_detail.do")
-	public ModelAndView my_detail(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView my_detail(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 
 		ModelAndView mv = new ModelAndView("my/my_detail");
 
 		String order_no = request.getParameter("order_no");
 
-		List<Map<String, Object>> my_detail = adminMainService.order_detail(commandMap);
+		List<Map<String, Object>> my_detail = adminMainService.order_detail(ParamMap);
 		System.out.println("my_detail:" + my_detail);
 
-		List<Map<String, Object>> my_detail_sub = adminMainService.order_detail_sub(commandMap);
+		List<Map<String, Object>> my_detail_sub = adminMainService.order_detail_sub(ParamMap);
 		System.out.println("my_detail_sub:" + my_detail_sub);
 
 		mv.addObject("my_detail", my_detail);

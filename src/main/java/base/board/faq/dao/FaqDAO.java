@@ -12,7 +12,7 @@ public class FaqDAO extends AbstractDao{
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectFaqList(Map<String, Object> map) throws Exception{
-		return (List<Map<String, Object>>)selectPagingList("faq.selectFaqList", map);
+		return sqlSession.selectList("faq.selectFaqList", map);
 	}
 
 	public void insertFaq(Map<String, Object> map) throws Exception{

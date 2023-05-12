@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.common.util.FileUtils;
 import base.shop.goods.dao.GoodsDAO;
 
@@ -260,11 +260,11 @@ public class GoodsServiceImpl implements GoodsService {
 
 
 //	@Override
-//	public int insertBasket(List<CommandMap> list, HttpServletRequest request) throws Exception {
+//	public int insertBasket(List<ParamMap> list, HttpServletRequest request) throws Exception {
 //		int resultYn = 0;
 ////		Map<String,Object> map = new HashMap<String,Object>();
 ////		if(null != list && list.size() >0) {
-////			for(CommandMap data : list) {
+////			for(ParamMap data : list) {
 ////				for(Map.Entry<String, Object> entry : data.entrySet()) {
 ////					String key = entry.getKey();
 ////					Object value = entry.getValue();
@@ -284,7 +284,7 @@ public class GoodsServiceImpl implements GoodsService {
 //		
 //		
 //		
-//		for(CommandMap data : list) {
+//		for(ParamMap data : list) {
 //			
 //			String[] Size = (String[])  data.getMap().get("ORDER_SIZE");
 //			System.out.println("data.getMap()="+Size);

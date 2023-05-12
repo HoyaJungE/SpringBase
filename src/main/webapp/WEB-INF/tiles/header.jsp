@@ -119,6 +119,45 @@
 			gapi.auth2.init();
 		});
 	}
+	
+	$(document).ready(function() {
+        fn_selectMenuList();         
+     });
+
+     function fn_selectMenuList() {
+   	  var body = $(".flex-menu");
+   	  var str = "";
+   	  $.ajax({
+ 			url : "<c:url value='/menu/selectMenuListData.do' />",    
+ 			type : "POST",   
+ 			data : this.param,
+ 			async : false, 
+ 			success : function(data, status) {
+ 				$.each(data.menuList, function(key, value){
+ 	               str += '<li>';
+ 	               str += '<a href="' + value.MENU_URL + '>' + value.MENU_ID;
+ 	               str += '</li>';
+ 	               str += '<li>';
+ 	               str += value.MENU_NAME;
+ 	               str += '</li>';
+ 	               str += '<li>';
+	               str += value.WRITER_ID;
+	               str += '</li>';
+	               str += '<li>';
+ 	               str += value.ORDR;
+ 	               str += '</li>';
+	               str += '<li>';
+ 	               str += value.INSRT_DT;
+ 	               str += '</li>';
+ 	               str += '<li>';
+	               str += value.UPDT_DT;
+	               str += '</li>';
+ 	            });
+ 				
+ 				body.append(str);
+ 			}
+   	  });
+     }
 </script>
 <script src = "//developers.kakao.com/sdk/js/kakao.min.js"></script>
 </body>

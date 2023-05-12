@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.member.my.dao.MyDAO;
 
 
@@ -54,40 +54,40 @@ public class MyServiceImpl implements MyService {
 	}
 
 	@Override
-	public List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception {
-		return myDAO.myPointList(commandMap);
+	public List<Map<String, Object>> myPointList(ParamMap ParamMap) throws Exception {
+		return myDAO.myPointList(ParamMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception {
-		return myDAO.myCouponList(commandMap);
+	public List<Map<String, Object>> myCouponList(ParamMap ParamMap) throws Exception {
+		return myDAO.myCouponList(ParamMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> myLikeList(CommandMap commandMap) throws Exception {
-		return myDAO.myLikeList(commandMap);
+	public List<Map<String, Object>> myLikeList(ParamMap ParamMap) throws Exception {
+		return myDAO.myLikeList(ParamMap);
 	}
 
 	@Override
-	public void goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception {
-		myDAO.goodsLikeDelete(commandMap);
+	public void goodsLikeDelete(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		myDAO.goodsLikeDelete(ParamMap);
 		
 	}
 	
 	@Override
-	public List<Map<String, Object>> myDash(CommandMap map) throws Exception {
+	public List<Map<String, Object>> myDash(ParamMap map) throws Exception {
 		// TODO Auto-generated method stub
 		return myDAO.myDash(map);		
 	}
 
 	@Override
-	public List<Map<String, Object>> myGoodsQnaList(CommandMap commandMap) throws Exception {
-		return myDAO.myQnaList(commandMap);
+	public List<Map<String, Object>> myGoodsQnaList(ParamMap ParamMap) throws Exception {
+		return myDAO.myQnaList(ParamMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> myReviewList(CommandMap commandMap) {
-		return myDAO.myReviewList(commandMap);
+	public List<Map<String, Object>> myReviewList(ParamMap ParamMap) {
+		return myDAO.myReviewList(ParamMap);
 	}
 	
 	

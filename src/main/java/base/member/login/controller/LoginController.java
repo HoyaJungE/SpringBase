@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.member.join.service.JoinService;
 import base.member.login.service.LoginService;
 
@@ -33,7 +33,7 @@ public class LoginController {
 
 
 	@RequestMapping(value = "/loginForm.do")
-	public ModelAndView loginForm(CommandMap commandMap) throws Exception {
+	public ModelAndView loginForm(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("login/loginForm");
 
 		return mv;
@@ -41,11 +41,11 @@ public class LoginController {
 
 	// 로그인 이후 메인페이지 이동
 	@RequestMapping(value = "/loginAction.do", method = RequestMethod.POST)
-	public ModelAndView loginAction(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView loginAction(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		HttpSession session = request.getSession();
 
-		Map<String, Object> chk = loginService.loginAction(commandMap.getMap());
+		Map<String, Object> chk = loginService.loginAction(ParamMap.getMap());
 
 		if (chk == null) {
 			mv.setViewName("login/loginForm");
@@ -56,7 +56,7 @@ public class LoginController {
 				mv.setViewName("login/loginForm");
 				mv.addObject("message", "탈퇴한 회원 입니다.");
 			} else {
-				if (chk.get("MEMBER_PASSWD").equals(commandMap.get("MEMBER_PASSWD"))) {
+				if (chk.get("MEMBER_PASSWD").equals(ParamMap.get("MEMBER_PASSWD"))) {
 					session.setAttribute("SESSION_ID", chk.get("MEMBER_ID"));
 					session.setAttribute("SESSION_NO", chk.get("MEMBER_NO"));
 					session.setAttribute("SESSION_NAME", chk.get("MEMBER_NAME"));
@@ -94,7 +94,7 @@ public class LoginController {
 
 	// 네이버 로그인 Callback 페이지
 	@RequestMapping(value = "/loginCallback.do")
-	public ModelAndView loginCallback(CommandMap commandMap) throws Exception {
+	public ModelAndView loginCallback(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("/loginCallback");
 
 		return mv;
@@ -117,7 +117,7 @@ public class LoginController {
 
 	// 아이디 찾기 폼
 	@RequestMapping(value = "/findId.do")
-	public ModelAndView findId(CommandMap commandMap) throws Exception {
+	public ModelAndView findId(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("login/findId");
 
 		return mv;
@@ -125,9 +125,9 @@ public class LoginController {
 
 	// 아이디 찾기
 	@RequestMapping(value = "/findIdAction.do", method = RequestMethod.POST)
-	public String selectSearchMyId(HttpSession session, CommandMap commandMap, RedirectAttributes ra) throws Exception {
-		String email = (String) commandMap.get("MEMBER_EMAIL");
-		Map<String, Object> map = loginService.selectFindId(commandMap.getMap());
+	public String selectSearchMyId(HttpSession session, ParamMap ParamMap, RedirectAttributes ra) throws Exception {
+		String email = (String) ParamMap.get("MEMBER_EMAIL");
+		Map<String, Object> map = loginService.selectFindId(ParamMap.getMap());
 		if (map == null) {
 			ra.addFlashAttribute("resultMsg", "입력된 정보가 일치하지 않습니다.");
 			return "redirect:/findId.do";
@@ -147,7 +147,7 @@ public class LoginController {
 
 	// 비밀번호 초기화 폼
 	@RequestMapping(value = "/findPw.do")
-	public ModelAndView findPw(CommandMap commandMap) throws Exception {
+	public ModelAndView findPw(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("login/findPw");
 
 		return mv;
@@ -155,9 +155,9 @@ public class LoginController {
 
 	// 비밀번호 초기화
 	@RequestMapping(value = "/findPwAction.do", method = RequestMethod.POST)
-	public String sendMailPassword(HttpSession session, CommandMap commandMap, RedirectAttributes ra) throws Exception {
-		String email = (String) commandMap.get("MEMBER_EMAIL");
-		String user = loginService.selectFindPw(commandMap.getMap());
+	public String sendMailPassword(HttpSession session, ParamMap ParamMap, RedirectAttributes ra) throws Exception {
+		String email = (String) ParamMap.get("MEMBER_EMAIL");
+		String user = loginService.selectFindPw(ParamMap.getMap());
 
 		if (user == null) {
 			ra.addFlashAttribute("resultMsg", "입력된 정보가 일치하지 않습니다.");
@@ -167,8 +167,8 @@ public class LoginController {
 		int ran = new Random().nextInt(100000) + 10000;
 		String password = String.valueOf(ran);
 
-		commandMap.put("MEMBER_PASSWD", password);
-		loginService.updatePw(commandMap.getMap());
+		ParamMap.put("MEMBER_PASSWD", password);
+		loginService.updatePw(ParamMap.getMap());
 
 		String subject = "<STYLE IS YOU>임시 비밀번호입니다.";
 		StringBuilder sb = new StringBuilder();

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 public interface GoodsService {
 	

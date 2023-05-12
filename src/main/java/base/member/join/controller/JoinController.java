@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.member.join.service.JoinService;
 
 
@@ -31,7 +31,7 @@ public class JoinController {
 	
 	// 회원가입 폼
 	@RequestMapping(value="/joinForm.do")
-	public ModelAndView joinForm(CommandMap commandMap) throws Exception {
+	public ModelAndView joinForm(ParamMap ParamMap) throws Exception {
 		ModelAndView mv = new ModelAndView("login/joinForm");
 
 		
@@ -40,19 +40,19 @@ public class JoinController {
 	
 	// 회원가입 처리
 	@RequestMapping(value="/joinAction.do", method=RequestMethod.POST)
-	public ModelAndView insertMember(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView insertMember(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("login/joinAction");
 		// 이메일, SMS 수신 여부
-		String email_agree = (String)commandMap.get("EMAIL_AGREE");
-		String sms_agree = (String)commandMap.get("SMS_AGREE");
+		String email_agree = (String)ParamMap.get("EMAIL_AGREE");
+		String sms_agree = (String)ParamMap.get("SMS_AGREE");
 		// 체크를 하지 않으면 '0' 으로 set 후 넘김
 		if(email_agree == null) {
 			email_agree = "0";
-			commandMap.put("EMAIL_AGREE", email_agree);
+			ParamMap.put("EMAIL_AGREE", email_agree);
 		}
 		if(sms_agree == null) {
 			sms_agree = "0";
-			commandMap.put("SMS_AGREE", sms_agree);
+			ParamMap.put("SMS_AGREE", sms_agree);
 		}
 		// 이메일
 		String email = request.getParameter("MEMBER_EMAIL") + "@" + request.getParameter("MEMBER_EMAIL2");
@@ -61,18 +61,18 @@ public class JoinController {
 		if(request.getParameter("MEMBER_EMAIL2") == "") {
 			email = request.getParameter("MEMBER_EMAIL");
 		}
-		commandMap.remove("MEMBER_EMAIL");
-		commandMap.put("MEMBER_EMAIL", email);
+		ParamMap.remove("MEMBER_EMAIL");
+		ParamMap.put("MEMBER_EMAIL", email);
 		
 		String birth = request.getParameter("MEMBER_BIRTH")
 					 + request.getParameter("MEMBER_BIRTH2") 
 					 + request.getParameter("MEMBER_BIRTH3");	
-		commandMap.remove("MEMBER_BIRTH");
-		commandMap.put("MEMBER_BIRTH", birth);
+		ParamMap.remove("MEMBER_BIRTH");
+		ParamMap.put("MEMBER_BIRTH", birth);
 
-		joinService.insertMember(commandMap.getMap());
+		joinService.insertMember(ParamMap.getMap());
 
-        mv.addObject("MEMBER_NAME", commandMap.get("MEMBER_NAME")); 
+        mv.addObject("MEMBER_NAME", ParamMap.get("MEMBER_NAME")); 
         
 		return mv;
 	}

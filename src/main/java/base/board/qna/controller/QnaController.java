@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import base.board.qna.service.QnaService;
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 @Controller
 public class QnaController {
@@ -25,17 +25,17 @@ public class QnaController {
 	private QnaService qnaService;
 	
 	@RequestMapping(value="/qna/openQnaList.do")
-    public ModelAndView openQnaList(CommandMap commandMap) throws Exception{
+    public ModelAndView openQnaList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/board/qnaList");
     	
     	return mv;
     }
 	
 	@RequestMapping(value="/qna/selectQnaList.do")
-    public ModelAndView selectQnaList(CommandMap commandMap) throws Exception{
+    public ModelAndView selectQnaList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
 
-    	List<Map<String,Object>> list = qnaService.selectQnaList(commandMap.getMap());
+    	List<Map<String,Object>> list = qnaService.selectQnaList(ParamMap.getMap());
     	System.out.println(list);
     	mv.addObject("list", list);
     	if(list.size() > 0){
@@ -49,17 +49,17 @@ public class QnaController {
     }
 	
 	@RequestMapping(value="/qna/openQnaWrite.do")
-	public ModelAndView openQnaWrite(CommandMap commandMap) throws Exception{
+	public ModelAndView openQnaWrite(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qnaWrite");
 		
 		return mv;
 	}
 	
 	@RequestMapping(value="/qna/insertQna.do", method = RequestMethod.POST )
-	public ModelAndView insertQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView insertQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
 		
-		qnaService.insertQna(commandMap.getMap(), request);
+		qnaService.insertQna(ParamMap.getMap(), request);
 		
 		
 		
@@ -67,10 +67,10 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value="/qna/openQnaDetail.do", method = RequestMethod.POST )
-	public ModelAndView openQnaDetail(CommandMap commandMap) throws Exception{
+	public ModelAndView openQnaDetail(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qnaDetail");
 		
-		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
+		Map<String,Object> map = qnaService.selectQnaDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 //		mv.addObject("list", map.get("list"));
 		
@@ -78,10 +78,10 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value="/qna/openQnaUpdate.do")
-	public ModelAndView openQnaUpdate(CommandMap commandMap) throws Exception{
+	public ModelAndView openQnaUpdate(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("/board/qnaUpdate");
 		
-		Map<String,Object> map = qnaService.selectQnaDetail(commandMap.getMap());
+		Map<String,Object> map = qnaService.selectQnaDetail(ParamMap.getMap());
 		mv.addObject("map", map.get("map"));
 		mv.addObject("list", map.get("list"));
 		
@@ -89,20 +89,20 @@ public class QnaController {
 	}
 	
 	@RequestMapping(value="/qna/updateQna.do")
-	public ModelAndView updateQna(CommandMap commandMap, HttpServletRequest request) throws Exception{
+	public ModelAndView updateQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaDetail.do");
 		
-		qnaService.updateQna(commandMap.getMap(), request);
+		qnaService.updateQna(ParamMap.getMap(), request);
 		
-		mv.addObject("QNA_NO", commandMap.get("QNA_NO"));
+		mv.addObject("QNA_NO", ParamMap.get("QNA_NO"));
 		return mv;
 	}
 	
 	@RequestMapping(value="/qna/deleteQna.do")
-	public ModelAndView deleteQna(CommandMap commandMap) throws Exception{
+	public ModelAndView deleteQna(ParamMap ParamMap) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
 		
-		qnaService.deleteQna(commandMap.getMap());
+		qnaService.deleteQna(ParamMap.getMap());
 		
 		return mv;
 	}

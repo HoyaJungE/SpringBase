@@ -4,9 +4,8 @@
 <mapper namespace="faq">
 
 	<!-- FAQ 리스트 불러오기 -->
-	<select id="selectFaqList" parameterType="hashmap" resultType="hashmap">
-		<include refid="common1.pagingPre1"/> 	
-		<![CDATA[
+	<select id="selectFaqList" resultType="camel">
+		/* selectFaqList - FAQ 리스트 불러오기 */
 			SELECT
 				ROW_NUMBER() OVER (ORDER BY NOTICE_NO DESC) RNUM, 
 				NOTICE_NO, 
@@ -17,8 +16,6 @@
 				NOTICE
 			WHERE 
 				NOTICE_GUBUN = '1'
-		]]>
-		<include refid="common1.pagingPost1"/>
 	</select>
 	
 	<!-- FAQ 리스트 등록하기 -->

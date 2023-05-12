@@ -6,9 +6,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 
 
@@ -29,21 +29,21 @@ public interface MyService {
 	
 
 	//포인트 목록
-	List<Map<String, Object>> myPointList(CommandMap commandMap) throws Exception;
+	List<Map<String, Object>> myPointList(ParamMap ParamMap) throws Exception;
 	//쿠폰 목록
-	List<Map<String, Object>> myCouponList(CommandMap commandMap) throws Exception;
+	List<Map<String, Object>> myCouponList(ParamMap ParamMap) throws Exception;
 	//좋아요 목록
-	List<Map<String, Object>> myLikeList(CommandMap commandMap) throws Exception;
+	List<Map<String, Object>> myLikeList(ParamMap ParamMap) throws Exception;
 	//좋아요 삭제
-	void goodsLikeDelete(CommandMap commandMap, HttpServletRequest request) throws Exception;
+	void goodsLikeDelete(ParamMap ParamMap, HttpServletRequest request) throws Exception;
 
-	List<Map<String, Object>> myDash(CommandMap commandMap) throws Exception; // 마이페이지사이드바
+	List<Map<String, Object>> myDash(ParamMap ParamMap) throws Exception; // 마이페이지사이드바
 	
 	//나의 상품QNA글
-	List<Map<String, Object>> myGoodsQnaList(CommandMap commandMap) throws Exception;
+	List<Map<String, Object>> myGoodsQnaList(ParamMap ParamMap) throws Exception;
 	
 	//나의 상품Review글
-	List<Map<String, Object>> myReviewList(CommandMap commandMap); 
+	List<Map<String, Object>> myReviewList(ParamMap ParamMap); 
 	
 	
 	

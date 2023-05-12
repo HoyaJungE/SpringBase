@@ -1,4 +1,4 @@
-package base.common.common;
+ package base.common.common;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,10 +6,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 //request에 담겨있는 파라미터를 Map에 담아주는 역할을 하는 클래스
-public class CommandMap { 
-	//javaBean을 안만들어도 됨 
-	//CommandMap 단점은 벨리데이터로 유효성체크를 못함
-	
+public class ParamMap { 
 	Map<String,Object> map = new HashMap<String,Object>();
 	
 	public Object get(String key) {

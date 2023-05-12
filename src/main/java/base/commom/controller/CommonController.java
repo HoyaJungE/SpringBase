@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 import base.common.service.CommonService;
 
 
@@ -25,8 +25,8 @@ public class CommonController {
 	private CommonService commonService;
 	
 	@RequestMapping(value="/common/downloadFile.do")
-	public void downloadFile(CommandMap commandMap, HttpServletResponse response) throws Exception{
-		Map<String,Object> map = commonService.selectFileInfo(commandMap.getMap());
+	public void downloadFile(ParamMap ParamMap, HttpServletResponse response) throws Exception{
+		Map<String,Object> map = commonService.selectFileInfo(ParamMap.getMap());
 		String storedFileName = (String)map.get("UPLOAD_SAVE_NAME");
 		String originalFileName = (String)map.get("UPLOAD_ORIGIN_NAME");
 		

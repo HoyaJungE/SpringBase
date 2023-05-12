@@ -176,22 +176,22 @@ li {
                   + value.RNUM
                   + "</td>"
                   + "<td class='title'>"
-                  + "<a href='#this' name='title' class='chk"+ value.RNUM +"'>"
-                  + value.NOTICE_TITLE
+                  + "<a href='#this' name='title' class='chk"+ value.rnum +"'>"
+                  + value.noticeTitle
                   + "</a>"
-                  + "<input type='hidden' name='title' value='" + value.NOTICE_NO + "'>"
+                  + "<input type='hidden' name='title' value='" + value.noticeNo + "'>"
                   + "</td>"
                   + "<td>"
-                  + value.NOTICE_DATE
+                  + value.noticeDate
                   + "</td>"
                   + "<td style='display:none;' class='deleteBtn'>"
-                  + "<a href='#this' name='delete'"+ value.NOTICE_NO +"'>삭제</a>"
-                  + "<input type='hidden' name='delete' value='" + value.NOTICE_NO + "'>"
+                  + "<a href='#this' name='delete'"+ value.noticeNo +"'>삭제</a>"
+                  + "<input type='hidden' name='delete' value='" + value.noticeNo + "'>"
                   + "</td>"
                   + "</tr>"
                   + "<tr>"
-                  + '<td colspan="3" style="display:none;" id="chk'+ value.RNUM + '">'
-                  + value.NOTICE_CONTENT + "</td>"
+                  + '<td colspan="3" style="display:none;" id="chk'+ value.rnum + '">'
+                  + value.noticeContent + "</td>"
                   + "</tr>";
             });
             body.append(str);

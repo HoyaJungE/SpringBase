@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import base.admin.coupon.service.AdminCouponService;
-import base.common.common.CommandMap;
+import base.common.common.ParamMap;
 
 @Controller
 public class AdminCouponController {
@@ -31,16 +31,16 @@ public class AdminCouponController {
 	
 	// Coupon List View (최초 조회) => http://localhost:8080/stu/adminCouponList.do
 	@RequestMapping(value="/adminCouponList.do", method = RequestMethod.GET)
-    public ModelAndView couponList(CommandMap commandMap) throws Exception{
+    public ModelAndView couponList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/coupon/couponList");
     	
     	return mv;
     }
 	@RequestMapping(value = "/adminCouponList.do", method = RequestMethod.POST)
-	public ModelAndView searchCouponList(CommandMap commandMap) throws Exception {
+	public ModelAndView searchCouponList(ParamMap ParamMap) throws Exception {
 		
 		ModelAndView mv = new ModelAndView("jsonView");
-		List<Map<String, Object>> list = adminCouponService.couponList(commandMap.getMap());
+		List<Map<String, Object>> list = adminCouponService.couponList(ParamMap.getMap());
 		
 		mv.addObject("list", list);
 		
@@ -77,7 +77,7 @@ public class AdminCouponController {
 	
 	//List -> title click
 	@RequestMapping(value="/adminCouponDetailForm.do", method = RequestMethod.POST)
-    public ModelAndView couponDetailFormP(CommandMap commandMap) throws Exception{
+    public ModelAndView couponDetailFormP(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/coupon/couponDetail");
     	return mv;
     }
@@ -85,9 +85,9 @@ public class AdminCouponController {
 	// Coupon List View => Title onclick  Detail View => http://localhost:8080/stu/adminCouponDetail.do
 	@RequestMapping(value = "/adminCouponDetail.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ModelAndView detailCouponInfo(CommandMap commandMap, HttpServletRequest request) throws Exception {
+	public ModelAndView detailCouponInfo(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
-		Object COUPON_NO = commandMap.getMap().get("COUPON_NO");
+		Object COUPON_NO = ParamMap.getMap().get("COUPON_NO");
 		
 		if (COUPON_NO == null || COUPON_NO == "") {
 			ModelAndView mv = new ModelAndView("redirect:/adminCouponList.do");
@@ -95,7 +95,7 @@ public class AdminCouponController {
 		} else {
 			ModelAndView mv = new ModelAndView("jsonView");
 			
-			List<Map<String, Object>> list = adminCouponService.couponDetail(commandMap.getMap());
+			List<Map<String, Object>> list = adminCouponService.couponDetail(ParamMap.getMap());
 			mv.addObject("list", list);
 			
 			return mv;
@@ -103,15 +103,15 @@ public class AdminCouponController {
 	}
 	
 	@RequestMapping(value = "/adminCouponInU.do", method = RequestMethod.POST)
-	public ModelAndView CouponInU(CommandMap commandMap) throws Exception {
+	public ModelAndView CouponInU(ParamMap ParamMap) throws Exception {
 		
-		Object type = commandMap.get("TYPE");
+		Object type = ParamMap.get("TYPE");
 		ModelAndView mv = new ModelAndView("redirect:/adminCouponList.do");
 		
 		if ("insert".equals(type)) {
-			adminCouponService.couponInsert(commandMap.getMap());
+			adminCouponService.couponInsert(ParamMap.getMap());
 		} else if ("modify".equals(type)) {
-			adminCouponService.couponUpdate(commandMap.getMap());
+			adminCouponService.couponUpdate(ParamMap.getMap());
 		} else {}
 		
 		return mv;
@@ -121,14 +121,14 @@ public class AdminCouponController {
 	
 	@RequestMapping(value = "/couponSave.do", method = RequestMethod.GET)
 	public ModelAndView couponSave
-	(CommandMap commandMap, HttpServletRequest request, @RequestParam("COUPON_NO") String COUPON_NO, HttpServletResponse response)
+	(ParamMap ParamMap, HttpServletRequest request, @RequestParam("COUPON_NO") String COUPON_NO, HttpServletResponse response)
 	throws Exception {
 		
 		//변수 선언
 		HttpSession session = request.getSession(); 
 		Object session_no = (Object)session.getAttribute("SESSION_NO");
 		ModelAndView mv = new ModelAndView("/event/redirect");
-		String msg = "",   url = "",   state = (String) adminCouponService.coupon_state(commandMap.getMap());
+		String msg = "",   url = "",   state = (String) adminCouponService.coupon_state(ParamMap.getMap());
 		
 		//로그인 정보가 없을 경우
 		if (session_no == null || session_no == "") {
@@ -145,8 +145,8 @@ public class AdminCouponController {
 			}
 			//그 외
 			else if ("ing".equals(state)) {
-				commandMap.put("session_no", session_no);
-				boolean result = adminCouponService.couponSave(commandMap.getMap());
+				ParamMap.put("session_no", session_no);
+				boolean result = adminCouponService.couponSave(ParamMap.getMap());
 				
 				//동일 쿠폰 발급이력이 없을 경우
 				if (result == true) {
