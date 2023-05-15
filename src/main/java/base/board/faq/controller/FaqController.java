@@ -17,20 +17,16 @@ import base.common.common.ParamMap;
 @Controller
 public class FaqController {
 	Logger log = Logger.getLogger(this.getClass());
-	
-	
-	
+
 	@Resource(name="faqService")
 	private FaqService faqService;
 	
-	@RequestMapping(value="/faq/openFaqList.do")
-    public ModelAndView openFaqList(ParamMap ParamMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/faqList");
-    	
-    	return mv;
+	@RequestMapping(value="/board/faq/openFaqList.do")
+    public String openFaqList(ParamMap ParamMap) throws Exception{
+    	return "/board/faq/faqList.tiles";
     }
 	
-	@RequestMapping(value="/faq/selectFaqList.do")
+	@RequestMapping(value="/board/faq/selectFaqList.do")
     public ModelAndView selectFaqList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
@@ -46,60 +42,48 @@ public class FaqController {
     	return mv;
     }
 	
-	@RequestMapping(value="/faq/openFaqWrite.do")
-	public ModelAndView openFaqWrite(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faqWrite");
-		
-		return mv;
+	@RequestMapping(value="/board/faq/openFaqWrite.do")
+	public String openFaqWrite(ParamMap ParamMap) throws Exception{
+		return "/board/faq/faqWrite.tiles";
 	}
 	
-	@RequestMapping(value="/faq/insertFaq.do")
-	public ModelAndView insertFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqList.do");
-		
+	@RequestMapping(value="/board/faq/insertFaq.do")
+	public String insertFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		faqService.insertFaq(ParamMap.getMap(), request);
 		
-		return mv;
+		return "redirect:/board/faq/openFaqList.do";
 	}
 	
-	@RequestMapping(value="/faq/openFaqDetail.do")
-	public ModelAndView openFaqDetail(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faqDetail");
-		
+	@RequestMapping(value="/board/faq/openFaqDetail.do")
+	public String openFaqDetail(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = faqService.selectFaqDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
+		request.setAttribute("list", map.get("list"));
 		
-		return mv;
+		return "/board/faq/faqDetail.tiles";
 	}
 	
-	@RequestMapping(value="/faq/openFaqUpdate.do")
-	public ModelAndView openFaqUpdate(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/faqUpdate");
-		
+	@RequestMapping(value="/board/faq/openFaqUpdate.do")
+	public String openFaqUpdate(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = faqService.selectFaqDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
+		request.setAttribute("list", map.get("list"));
 		
-		return mv;
+		return "/board/faq/faqUpdate.tiles";
 	}
 	
-	@RequestMapping(value="/faq/updateFaq.do")
-	public ModelAndView updateFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqDetail.do");
-		
+	@RequestMapping(value="/board/faq/updateFaq.do")
+	public String updateFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		faqService.updateFaq(ParamMap.getMap(), request);
+		request.setAttribute("NOTICE_NO", ParamMap.get("NOTICE_NO"));
 		
-		mv.addObject("NOTICE_NO", ParamMap.get("NOTICE_NO"));
-		return mv;
+		return "redirect:/board/faq/openFaqDetail.do";
 	}
 	
-	@RequestMapping(value="/faq/deleteFaq.do")
-	public ModelAndView deleteFaq(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/faq/openFaqList.do");
-		
+	@RequestMapping(value="/board/faq/deleteFaq.do")
+	public String deleteFaq(ParamMap ParamMap) throws Exception{
 		faqService.deleteFaq(ParamMap.getMap());
 		
-		return mv;
+		return "redirect:/board/faq/openFaqList.do";
 	}
 }

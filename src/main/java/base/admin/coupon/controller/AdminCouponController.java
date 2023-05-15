@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,17 +24,14 @@ public class AdminCouponController {
 	
 	Logger log = Logger.getLogger(this.getClass());
 
-	// AdminCouponService => Resource
 	@Resource(name = "adminCouponService")
 	private AdminCouponService adminCouponService;
 	
-	// Coupon List View (최초 조회) => http://localhost:8080/stu/adminCouponList.do
 	@RequestMapping(value="/adminCouponList.do", method = RequestMethod.GET)
-    public ModelAndView couponList(ParamMap ParamMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/coupon/couponList");
-    	
-    	return mv;
+    public String couponList(ParamMap ParamMap) throws Exception{
+    	return "/coupon/couponList";
     }
+	
 	@RequestMapping(value = "/adminCouponList.do", method = RequestMethod.POST)
 	public ModelAndView searchCouponList(ParamMap ParamMap) throws Exception {
 		
@@ -52,10 +48,7 @@ public class AdminCouponController {
 		}
 		return mv;
 	}
-	////////////////////////////////////////////
 	
-	
-	// start Coupon new InsertForm
 	@RequestMapping(value = "/adminCouponWriteForm.do", method = RequestMethod.GET)
 	public ModelAndView couponInsertForm() throws Exception {
 		ModelAndView mv = new ModelAndView("/coupon/couponWrite");
@@ -69,20 +62,13 @@ public class AdminCouponController {
 		mv.addObject("NEXT_COUPON_NO", NEXT_COUPON_NO);
 		return mv;
 	}
-	// end
-	////////////////////////////////////////////
 	
-	
-	
-	
-	//List -> title click
 	@RequestMapping(value="/adminCouponDetailForm.do", method = RequestMethod.POST)
     public ModelAndView couponDetailFormP(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("/coupon/couponDetail");
     	return mv;
     }
 	
-	// Coupon List View => Title onclick  Detail View => http://localhost:8080/stu/adminCouponDetail.do
 	@RequestMapping(value = "/adminCouponDetail.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ModelAndView detailCouponInfo(ParamMap ParamMap, HttpServletRequest request) throws Exception {
@@ -117,14 +103,9 @@ public class AdminCouponController {
 		return mv;
 	}
 	
-	
-	
 	@RequestMapping(value = "/couponSave.do", method = RequestMethod.GET)
-	public ModelAndView couponSave
-	(ParamMap ParamMap, HttpServletRequest request, @RequestParam("COUPON_NO") String COUPON_NO, HttpServletResponse response)
+	public ModelAndView couponSave(ParamMap ParamMap, HttpServletRequest request, @RequestParam("COUPON_NO") String COUPON_NO, HttpServletResponse response)
 	throws Exception {
-		
-		//변수 선언
 		HttpSession session = request.getSession(); 
 		Object session_no = (Object)session.getAttribute("SESSION_NO");
 		ModelAndView mv = new ModelAndView("/event/redirect");
@@ -166,8 +147,6 @@ public class AdminCouponController {
 		mv.addObject("message", msg);
 		mv.addObject("urlPage", url);
 		return mv;
-		
 	}
-
 	
 }

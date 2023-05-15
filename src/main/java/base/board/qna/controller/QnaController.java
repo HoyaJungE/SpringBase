@@ -24,14 +24,12 @@ public class QnaController {
 	@Resource(name="qnaService")
 	private QnaService qnaService;
 	
-	@RequestMapping(value="/qna/openQnaList.do")
-    public ModelAndView openQnaList(ParamMap ParamMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/qnaList");
-    	
-    	return mv;
+	@RequestMapping(value="/board/qna/openQnaList.do")
+    public String openQnaList(ParamMap ParamMap) throws Exception{
+    	return "/board/qna/qnaList";
     }
 	
-	@RequestMapping(value="/qna/selectQnaList.do")
+	@RequestMapping(value="/board/qna/selectQnaList.do")
     public ModelAndView selectQnaList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
 
@@ -48,67 +46,52 @@ public class QnaController {
     	return mv;
     }
 	
-	@RequestMapping(value="/qna/openQnaWrite.do")
-	public ModelAndView openQnaWrite(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qnaWrite");
-		
-		return mv;
+	@RequestMapping(value="/board/qna/openQnaWrite.do")
+	public String openQnaWrite(ParamMap ParamMap) throws Exception{
+		return "/board/qna/qnaWrite";
 	}
 	
-	@RequestMapping(value="/qna/insertQna.do", method = RequestMethod.POST )
-	public ModelAndView insertQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
-		
+	@RequestMapping(value="/board/qna/insertQna.do", method = RequestMethod.POST )
+	public String insertQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		qnaService.insertQna(ParamMap.getMap(), request);
 		
-		
-		
-		return mv;
+		return "redirect:/board/qna/openQnaList.do";
 	}
 	
-	@RequestMapping(value="/qna/openQnaDetail.do", method = RequestMethod.POST )
-	public ModelAndView openQnaDetail(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qnaDetail");
-		
+	@RequestMapping(value="/board/qna/openQnaDetail.do", method = RequestMethod.POST )
+	public String openQnaDetail(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = qnaService.selectQnaDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-//		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
 		
-		return mv;
+		return "/board/qna/qnaDetail";
 	}
 	
-	@RequestMapping(value="/qna/openQnaUpdate.do")
-	public ModelAndView openQnaUpdate(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/qnaUpdate");
-		
+	@RequestMapping(value="/board/qna/openQnaUpdate.do")
+	public String openQnaUpdate(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = qnaService.selectQnaDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
+		request.setAttribute("list", map.get("list"));
 		
-		return mv;
+		return "/board/qna/qnaUpdate";
 	}
 	
-	@RequestMapping(value="/qna/updateQna.do")
-	public ModelAndView updateQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaDetail.do");
-		
+	@RequestMapping(value="/board/qna/updateQna.do")
+	public String updateQna(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		qnaService.updateQna(ParamMap.getMap(), request);
+		request.setAttribute("QNA_NO", ParamMap.get("QNA_NO"));
 		
-		mv.addObject("QNA_NO", ParamMap.get("QNA_NO"));
-		return mv;
+		return "redirect:/board/qna/openQnaDetail.do";
 	}
 	
-	@RequestMapping(value="/qna/deleteQna.do")
-	public ModelAndView deleteQna(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/qna/openQnaList.do");
-		
+	@RequestMapping(value="/board/qna/deleteQna.do")
+	public String deleteQna(ParamMap ParamMap) throws Exception{
 		qnaService.deleteQna(ParamMap.getMap());
 		
-		return mv;
+		return "redirect:/board/qna/openQnaList.do";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/qna/chkPassword.do", method = RequestMethod.POST)
+	@RequestMapping(value="/board/qna/chkPassword.do", method = RequestMethod.POST)
 	public int chkPassword(@RequestParam Map<String, Object> params) throws Exception{
 		int chkPassword = 0;
 		Map<String, Object> passwordMap = qnaService.selectQnaPassword(params);

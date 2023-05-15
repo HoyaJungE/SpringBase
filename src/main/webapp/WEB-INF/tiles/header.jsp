@@ -53,14 +53,14 @@
 <!-- 검색 -->
 <div style="margin-left:23%;">
 <form method="post" action="/base/shop/openMainSearch.do" id="searchbox5">
-        <input id="search51" name="keyword" type="text" size="40" placeholder="#원피스 #가디건 #데일리" value="${keyword1}"/>
+	<input id="search51" name="keyword" type="text" size="40" placeholder="#원피스 #가디건 #데일리" value="${keyword1}"/>
 </form>
 </div>
 
 <!-- 메뉴 -->
 <div class="pagemid">
   <div class="wrapper2">
-   <I><h1><a href="/base/main.do">J STYLE</a></h1></I>
+   <I><h1><a href="/base/main.do">base</a></h1></I>
     <ul class="flex-menu">
       <li>&nbsp;</li>
       <li><a href="#">서비스소개</a></li>

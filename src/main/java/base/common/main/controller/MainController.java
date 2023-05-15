@@ -26,7 +26,7 @@ public class MainController {
 	@RequestMapping(value = "main.do")
 	public ModelAndView openMainList(ParamMap ParamMap, HttpServletRequest request)  // 메인 
 			throws Exception {
-		ModelAndView mv = new ModelAndView("main");
+		ModelAndView mv = new ModelAndView("main.tiles");
 		
 		mv.addObject("IDX", ParamMap.getMap().get("IDX"));
 		

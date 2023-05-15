@@ -26,9 +26,9 @@
    <div class="pagemid">
       <div class="wrapper3">
          <ul class="flex-menu">
-            <li><a href="/base/faq/openFaqList.do">FAQ</a></li>
-            <li><a href="/base/notice/openNoticeList.do">공지사항</a></li>
-            <li><a href="/base/menu/openMenuList.do">QNA</a></li>
+            <li><a href="/base/board/faq/openFaqList.do">FAQ</a></li>
+            <li><a href="/base/board/notice/openNoticeList.do">공지사항</a></li>
+            <li><a href="/base/board/menu/openMenuList.do">QNA</a></li>
          </ul>
          <br>
          <div class="bar"></div>
@@ -62,6 +62,8 @@
    </table>
 
    <form id="commonForm" name="commonForm"></form>
+   
+   <a href="/base/menu/menuInsertPage.do">메뉴추가</a>
 
 	<script type="text/javascript">
       $(document).ready(function() {

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,16 +6,11 @@
 <title>Insert title here</title>
 </head>
 
-
-
-
 <body>
-
 <div style="width:100%">
 <div style="width:100%;float:left;">
 <a name="CSA05"></a>
 <style type="text/css">
-
 #footer_top{ background: #fff; text-align: left;}
 #footer_top .footer-top { border-top: 1px solid #e9e9e9; padding: 40px 0 35px; display: inline-block; width: 100%;}
 #footer_top .comm-w {width: 1260px;margin: 0 auto;}
@@ -81,9 +75,8 @@
 				<h4>BOARD</h4>
 				<div class="con">
 					<ul>
-						<!--<li><a href="/cscenter/consultReg.asp"><span>1:1문의</span></a></li>-->
 						<li><a href="#"><span>문의게시판</span></a></li>
-						<li><a href="#"><span>FAQ</span></a></li>
+						<li><a href="/base/board/faq/openFaqList.do"><span>FAQ</span></a></li>
 						<li><a href="#"><span>이용약관</span></a></li>
 						<li><a href="#"><span>개인정보처리방침</span></a></li>
 					</ul>
@@ -104,8 +97,8 @@
 		<!-- <img src="/data/yedda/foot_logo.png"> -->
 		<address>
 				<span style="" class="footCopyrightbtn" onclick="onopen();" valign="absmiddle">사업자정보확인</span> 경기도 오산시 어딘가<br>
-				 대표자명: 최연정<span class="bar">｜</span>사업자등록번호: 132-81-000000<span class="bar">｜</span>문의전화: 070-7777-7777<span class="bar">｜</span>팩스: 031-777-7777<span class="bar"><br>
-				</span> 통신판매신고: 제2018-오산시-0000호 <span class="bar">｜</span> 개인정보관리책임자: 최연정 (J STYLE)<br>
+				 대표자명: ooo<span class="bar">｜</span>사업자등록번호: 132-81-000000<span class="bar">｜</span>문의전화: 070-7777-7777<span class="bar">｜</span>팩스: 031-777-7777<span class="bar"><br>
+				</span> 통신판매신고: 제2018-오산시-0000호 <span class="bar">｜</span> 개인정보관리책임자: ooo<br>
 				<br>
 				© 2023 <b>J STYLE </b> ALL RIGHTS RESERVED.
 		</address>

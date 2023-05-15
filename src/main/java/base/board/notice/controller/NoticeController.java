@@ -21,14 +21,12 @@ public class NoticeController {
 	@Resource(name="noticeService")
 	private NoticeService noticeService;
 	
-	@RequestMapping(value="/notice/openNoticeList.do")
-    public ModelAndView openNoticeList(ParamMap ParamMap) throws Exception{
-    	ModelAndView mv = new ModelAndView("/board/noticeList");
-    	
-    	return mv;
+	@RequestMapping(value="/board/notice/openNoticeList.do")
+    public String openNoticeList(ParamMap ParamMap) throws Exception{
+    	return "/board/notice/noticeList";
     }
 	
-	@RequestMapping(value="/notice/selectNoticeList.do")
+	@RequestMapping(value="/board/notice/selectNoticeList.do")
     public ModelAndView selectNoticeList(ParamMap ParamMap) throws Exception{
     	ModelAndView mv = new ModelAndView("jsonView");
     	
@@ -44,60 +42,48 @@ public class NoticeController {
     	return mv;
     }
 	
-	@RequestMapping(value="/notice/openNoticeWrite.do")
-	public ModelAndView openNoticeWrite(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/noticeWrite");
-		
-		return mv;
+	@RequestMapping(value="/board/notice/openNoticeWrite.do")
+	public String openNoticeWrite(ParamMap ParamMap) throws Exception{
+		return "/board/notice/noticeWrite";
 	}
 	
-	@RequestMapping(value="/notice/insertNotice.do")
-	public ModelAndView insertNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
-		
+	@RequestMapping(value="/board/notice/insertNotice.do")
+	public String insertNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		noticeService.insertNotice(ParamMap.getMap(), request);
 		
-		return mv;
+		return "redirect:/board/notice/openNoticeList.do";
 	}
 	
-	@RequestMapping(value="/notice/openNoticeDetail.do")
-	public ModelAndView openNoticeDetail(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/noticeDetail");
-		
+	@RequestMapping(value="/board/notice/openNoticeDetail.do")
+	public String openNoticeDetail(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = noticeService.selectNoticeDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
+		request.setAttribute("list", map.get("list"));
 		
-		return mv;
+		return "/board/notice/noticeDetail";
 	}
 	
-	@RequestMapping(value="/notice/openNoticeUpdate.do")
-	public ModelAndView openNoticeUpdate(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("/board/noticeUpdate");
-		
+	@RequestMapping(value="/board/notice/openNoticeUpdate.do")
+	public String openNoticeUpdate(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		Map<String,Object> map = noticeService.selectNoticeDetail(ParamMap.getMap());
-		mv.addObject("map", map.get("map"));
-		mv.addObject("list", map.get("list"));
+		request.setAttribute("map", map.get("map"));
+		request.setAttribute("list", map.get("list"));
 		
-		return mv;
+		return "/board/notice/noticeUpdate";
 	}
 	
-	@RequestMapping(value="/notice/updateNotice.do")
-	public ModelAndView updateNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeDetail.do");
-		
+	@RequestMapping(value="/board/notice/updateNotice.do")
+	public String updateNotice(ParamMap ParamMap, HttpServletRequest request) throws Exception{
 		noticeService.updateNotice(ParamMap.getMap(), request);
+		request.setAttribute("NOTICE_NO", ParamMap.get("NOTICE_NO"));
 		
-		mv.addObject("NOTICE_NO", ParamMap.get("NOTICE_NO"));
-		return mv;
+		return "redirect:/board/notice/openNoticeDetail.do";
 	}
 	
-	@RequestMapping(value="/notice/deleteNotice.do")
-	public ModelAndView deleteNotice(ParamMap ParamMap) throws Exception{
-		ModelAndView mv = new ModelAndView("redirect:/notice/openNoticeList.do");
-		
+	@RequestMapping(value="/board/notice/deleteNotice.do")
+	public String deleteNotice(ParamMap ParamMap) throws Exception{
 		noticeService.deleteNotice(ParamMap.getMap());
 		
-		return mv;
+		return "redirect:/board/notice/openNoticeList.do";
 	}
 }

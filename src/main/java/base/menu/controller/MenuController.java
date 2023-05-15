@@ -25,7 +25,7 @@ public class MenuController {
 	
 	@RequestMapping(value = "menuList.do")
 	public String menuList(ParamMap paramMap, HttpServletRequest request) throws Exception {
-		return "menu/menuList";
+		return "menu/menuList.tiles";
 	}
 		
 	@RequestMapping(value = "selectMenuListData.do")
@@ -40,13 +40,32 @@ public class MenuController {
 	@RequestMapping(value = "menuDetail.do")
 	public String menuDetail(ParamMap paramMap, HttpServletRequest request) throws Exception {
 		request.setAttribute("map", menuService.selectMenuDetail(paramMap.getMap()));
-		return "menu/menuDetail";
+		return "menu/menuDetail.tiles";
+	}
+	
+	@RequestMapping(value="/menuInsertPage.do")
+	public String menuInsertPage(ParamMap ParamMap) throws Exception{
+		return "menu/menuInsert.tiles";
+	}
+	
+	@RequestMapping(value="/insertMenu.do")
+	public String insertFaq(ParamMap ParamMap, HttpServletRequest request) throws Exception{
+		menuService.insertMenu(ParamMap.getMap(), request);
+		
+		return "redirect:/menu/menuList.do";
 	}
 	
 	@RequestMapping(value = "menuUpdate.do")
 	public String menuUpdate(ParamMap paramMap, HttpServletRequest request) throws Exception {
 		menuService.updateMenu(paramMap.getMap(), request);
-		return "menu/menuList";
+		return "redirect:/menu/menuList.do";
+	}
+	
+	@RequestMapping(value="/board/faq/deleteFaq.do")
+	public String deleteFaq(ParamMap ParamMap) throws Exception{
+		menuService.deleteMenu(ParamMap.getMap());
+		
+		return "redirect:/menu/menuList.do";
 	}
 
 }

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +15,6 @@
 </head>
 
 <style>
-
 a {
   text-decoration: none;
   color: #666;
@@ -32,7 +30,6 @@ h1 {
 }  
 </style>
 <body>
-	<br />
 	<br />
 	<br />
 	<h2>공지사항</h2>
