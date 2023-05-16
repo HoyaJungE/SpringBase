@@ -10,8 +10,13 @@
 		<setting name="callSettersOnNulls" value="true"/>
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
+	
 	<typeAliases>
 		<typeAlias type="base.common.common.CamelCaseMap" alias="camel"/>
 	</typeAliases>
-
+	
+	<typeHandlers>
+		<typeHandler javaType="oracle.sql.TIMESTAMP" handler="org.apache.ibatis.type.SqlTimestampTypeHandler"/>
+	</typeHandlers>
+	
 </configuration>

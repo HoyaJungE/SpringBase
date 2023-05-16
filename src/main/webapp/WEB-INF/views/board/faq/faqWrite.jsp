@@ -89,13 +89,13 @@ h1 {
 
 		function fn_openFaqList() {
 			var comSubmit = new ComSubmit();
-			comSubmit.setUrl("<c:url value='/faq/openFaqList.do' />");
+			comSubmit.setUrl("<c:url value='/board/faq/openFaqList.do' />");
 			comSubmit.submit();
 		}
 
 		function fn_insertFaq() {
 			var comSubmit = new ComSubmit("frm");
-			comSubmit.setUrl("<c:url value='/faq/insertFaq.do' />");
+			comSubmit.setUrl("<c:url value='/board/faq/insertFaq.do' />");
 			comSubmit.submit();
 		}
 	</script>

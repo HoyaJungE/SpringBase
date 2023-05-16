@@ -7,10 +7,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="ui" uri="http://tiles.apache.org/tags-tiles"%>
 <%
-   String sessionName = (String) session.getAttribute("SESSION_NAME");
+   String sessionId = (String) session.getAttribute("SESSION_ID");
 
-if (sessionName == null || sessionName.equals("")) {
-   sessionName = "nomal";
+if (sessionId == null || sessionId.equals("")) {
+   sessionId = "nomal";
 }
 %>
 <link rel="stylesheet" type="text/css"
@@ -57,21 +57,15 @@ li {
    <div class="pagemid">
       <div class="wrapper3">
          <ul class="flex-menu">
-            <li><a href="/base/faq/openFaqList.do">FAQ</a></li>
-            <li><a href="/base/notice/openNoticeList.do">공지사항</a></li>
-            <li><a href="/base/qna/openQnaList.do">QNA</a></li>
+            <li><a href="/base/board/faq/openFaqList.do">FAQ</a></li>
+            <li><a href="/base/board/notice/openNoticeList.do">공지사항</a></li>
+            <li><a href="/base/board/qna/openQnaList.do">QNA</a></li>
          </ul>
          <br>
          <div class="bar"></div>
       </div>
    </div>
-
-   <br />
-   <br />
-   <br />
    <h2>FAQ 자주묻는질문</h2>
-   <br />
-   <br />
    <table class="board_list">
       <colgroup>
          <col width="10%" />
@@ -114,14 +108,10 @@ li {
             fn_deleteFaq($(this));
          });
    <%
-      if (sessionName.trim().equals("admin")) {
+      if (sessionId.trim().equals("stu")) {
    %>
-      $("#wrapBtn").show();
-      $(".deleteBtn").show();
-   <%
-      } else if (sessionName.trim().equals("nomal")) {
-   %>
-      
+      	$("#wrapBtn").show();
+      	$(".deleteBtn").show();
    <%
       }
    %>
@@ -129,7 +119,7 @@ li {
 
       function fn_deleteFaq(obj) {
          var comSubmit = new ComSubmit();
-         comSubmit.setUrl("<c:url value='/faq/deleteFaq.do' />");
+         comSubmit.setUrl("<c:url value='/board/faq/deleteFaq.do' />");
          comSubmit.addParam("NOTICE_NO", obj.parent().find(
                "input[name='delete']").val());
          comSubmit.submit();
@@ -137,13 +127,13 @@ li {
 
       function fn_openFaqWrite() {
          var comSubmit = new ComSubmit();
-         comSubmit.setUrl("<c:url value='/faq/openFaqWrite.do' />");
+         comSubmit.setUrl("<c:url value='/board/faq/openFaqWrite.do' />");
          comSubmit.submit();
       }
 
       function fn_selectFaqList(pageNo) {
          var comAjax = new ComAjax();
-         comAjax.setUrl("<c:url value='/faq/selectFaqList.do' />");
+         comAjax.setUrl("<c:url value='/board/faq/selectFaqList.do' />");
          comAjax.setCallback("fn_selectFaqListCallback");
          comAjax.addParam("PAGE_INDEX", $("#PAGE_INDEX").val());
          comAjax.addParam("PAGE_ROW", 10);
@@ -173,7 +163,7 @@ li {
             $.each(data.list, function(key, value) {
                str += "<tr id='off'>"
                   + "<td>"
-                  + value.RNUM
+                  + value.rnum
                   + "</td>"
                   + "<td class='title'>"
                   + "<a href='#this' name='title' class='chk"+ value.rnum +"'>"

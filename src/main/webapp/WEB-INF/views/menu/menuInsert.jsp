@@ -9,35 +9,14 @@
 <head>
 </head>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/menu/menu.css'/>" />
 
 <!-- jQuery -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="<c:url value='/js/commonn.js'/>" charset="utf-8"></script>
 
-<style>
-
-a {
-  text-decoration: none;
-  color: #666;
-  text-decoration:none
-}
-
-h1 {
-    text-align: center;
-    padding: 50px 0;
-    font-weight: normal;
-    font-size: 2em;
-    letter-spacing: 10px;
-}  
-</style>
-
 <body>
-	<br />
-	<br />
-	<br />
-	<br />
-	<br />
 	<form id="frm" name="frm" enctype="multipart/form-data">
 		<input type="text" id="writerId" name="writerId" value="${map.SESSION_NO}">
 		<table class="board_view">
@@ -50,7 +29,6 @@ h1 {
 		         <col width="10%" />
 		         <col width="10%" />
 			</colgroup>
-			<caption>메뉴상세</caption>
 			<tbody>
 				<tr>
 					<th scope="row">메뉴명</th>

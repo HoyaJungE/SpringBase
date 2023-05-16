@@ -23,7 +23,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/faq/openFaqList.do")
     public String openFaqList(ParamMap ParamMap) throws Exception{
-    	return "/board/faq/faqList.tiles";
+    	return "board/faq/faqList.tiles";
     }
 	
 	@RequestMapping(value="/board/faq/selectFaqList.do")
@@ -44,7 +44,7 @@ public class FaqController {
 	
 	@RequestMapping(value="/board/faq/openFaqWrite.do")
 	public String openFaqWrite(ParamMap ParamMap) throws Exception{
-		return "/board/faq/faqWrite.tiles";
+		return "board/faq/faqWrite.tiles";
 	}
 	
 	@RequestMapping(value="/board/faq/insertFaq.do")
@@ -60,7 +60,7 @@ public class FaqController {
 		request.setAttribute("map", map.get("map"));
 		request.setAttribute("list", map.get("list"));
 		
-		return "/board/faq/faqDetail.tiles";
+		return "board/faq/faqDetail.tiles";
 	}
 	
 	@RequestMapping(value="/board/faq/openFaqUpdate.do")
@@ -69,7 +69,7 @@ public class FaqController {
 		request.setAttribute("map", map.get("map"));
 		request.setAttribute("list", map.get("list"));
 		
-		return "/board/faq/faqUpdate.tiles";
+		return "board/faq/faqUpdate.tiles";
 	}
 	
 	@RequestMapping(value="/board/faq/updateFaq.do")

@@ -5,8 +5,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="ui" uri="http://tiles.apache.org/tags-tiles"%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value='/css/uii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/uii.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/board.css'/>" />
 
 <!-- jQuery -->
 <script

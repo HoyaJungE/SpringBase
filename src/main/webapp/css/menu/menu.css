@@ -1,0 +1,69 @@
+a {
+  text-decoration: none;
+  color: #666;
+  text-decoration:none
+}
+
+h1 {
+    text-align: center;
+    padding: 50px 0;
+    font-weight: normal;
+    font-size: 2em;
+    letter-spacing: 10px;
+}  
+
+.menulist{
+	text-align: center;
+}
+
+.menulist table {
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: left;
+  line-height: 1.5;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  margin : 20px 10px;
+}
+.menulist table th {
+  width: 150px;
+  padding: 10px;
+  font-weight: bold;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #fff;
+  border-left: 1px solid #fff;
+  background: #eee;
+}
+.menulist table td {
+  width: 350px;
+  padding: 10px;
+  vertical-align: top;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.menulist label {
+  position: absolute;
+  top: 1px;  /* input 요소의 border-top 설정값 만큼 */
+  left: 1px;  /* input 요소의 border-left 설정값 만큼 */
+  padding: .8em .5em;  /* input 요소의 padding 값 만큼 */
+  color: #999;
+  cursor: text;
+}
+
+.menulist input[type="text"],
+.menulist input[type="password"] {
+  width: 100%;  /* 원하는 너비 설정 */ 
+  height: auto;  /* 높이값 초기화 */
+  line-height : normal;  /* line-height 초기화 */
+  padding: .8em .5em; /* 원하는 여백 설정, 상하단 여백으로 높이를 조절 */
+  font-family: inherit;  /* 폰트 상속 */
+  border: 1px solid #999;
+  border-radius: 0;  /* iSO 둥근모서리 제거 */
+  outline-style: none;  /* 포커스시 발생하는 효과 제거를 원한다면 */
+  -webkit-appearance: none;  /* 브라우저별 기본 스타일링 제거 */
+  -moz-appearance: none;
+  appearance: none;
+}
