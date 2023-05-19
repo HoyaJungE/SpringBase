@@ -8,6 +8,7 @@
 		SELECT MENU_ID
 			   ,UPPR_MENU_ID
 			   ,MENU_NAME
+			   ,MENU_URL
 			   ,WRITER_ID
 			   ,ORDR
 			   ,TO_CHAR(INSRT_DT, 'YYYY-MM-DD HH24:MI:SS') AS INSRT_DT

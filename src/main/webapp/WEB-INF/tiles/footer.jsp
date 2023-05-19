@@ -35,9 +35,7 @@
 #y_footer .escro_foot { position:absolute; right: 270px; top:0px; } 
 #y_footer .escro_foot img {  height:80px; width:auto; }
 
-
 </style>
-
 
 <div id="footer_top">
 	<div class="footer-top">
@@ -94,7 +92,6 @@
 <footer id="y_footer">
 	<div class="footer_wrap">
 	<div class="wrap">
-		<!-- <img src="/data/yedda/foot_logo.png"> -->
 		<address>
 				<span style="" class="footCopyrightbtn" onclick="onopen();" valign="absmiddle">사업자정보확인</span> 경기도 오산시 어딘가<br>
 				 대표자명: ooo<span class="bar">｜</span>사업자등록번호: 132-81-000000<span class="bar">｜</span>문의전화: 070-7777-7777<span class="bar">｜</span>팩스: 031-777-7777<span class="bar"><br>

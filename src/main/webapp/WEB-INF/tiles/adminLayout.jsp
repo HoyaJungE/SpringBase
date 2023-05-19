@@ -25,17 +25,10 @@
 	<div id="content">
 		<tiles:insertAttribute name="content" ignore="true" />
 	</div>	
-	
-<br>
-<br>
-
 
 	<div id="footer">
 		<tiles:insertAttribute name="footer" ignore="true"/>	
 	</div>
-
-
-
 
 </body>
 </html>
