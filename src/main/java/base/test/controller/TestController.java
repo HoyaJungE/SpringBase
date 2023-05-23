@@ -23,11 +23,17 @@ public class TestController {
 Logger log = Logger.getLogger(this.getClass()); //로그
 	
 	//스크립트테스트페이지 이동
-	@RequestMapping(value="/testPage.do")
-	public String testPage(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+	@RequestMapping(value="/testTetris.do")
+	public String testTetris(ParamMap ParamMap, HttpServletRequest request) throws Exception {
 		
-		return "test/test";
+		return "test/tetris";
 	}
 
+	//스크립트테스트페이지 이동
+	@RequestMapping(value="/testJqgrid.do")
+	public String testPage(ParamMap ParamMap, HttpServletRequest request) throws Exception {
+		
+		return "test/jqgridTest";
+	}
 
 }
