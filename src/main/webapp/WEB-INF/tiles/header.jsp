@@ -11,6 +11,7 @@
 
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/template/header.css'/>" />
+<link rel="stylesheet" type="text/css" href="<c:url value='/css/ui.css'/>" />
 <!-- jQuery -->
 <script src="<c:url value='/js/jquery-3.7.0.min.js'/>" charset="utf-8"></script>
 </head>
@@ -60,14 +61,14 @@
   <div class="wrapper2">
     <I><h1><a href="/base/main.do">base</a></h1></I>
     <ul class="flex-menu">
-      <li><a href="#">서비스소개</a></li>
+     <!--  <li><a href="#">서비스소개</a></li>
       <li><a href="/base/shop/bestGoodsList.do">BEST</a></li>
       <li><a href="/base/shop/newGoodsList.do">NEW</a></li>
       <li><a href="/base/shop/goodsList/outer/NewItem.do">OUTER</a></li>
       <li><a href="/base/shop/goodsList/top/NewItem.do">TOP</a></li>
       <li><a href="/base/shop/goodsList/one-piece/NewItem.do">ONE-PIECE</a></li>
       <li><a href="/base/shop/goodsList/bottom/NewItem.do">BOTTOM</a></li>
-      <li><a href="/base/shop/goodsList/acc/NewItem.do">ACC</a></li>
+      <li><a href="/base/shop/goodsList/acc/NewItem.do">ACC</a></li> -->
     </ul>
   </div>
 </div>
@@ -129,7 +130,7 @@
  				var menuStr = "";
  				$.each(data.menuList, function(key, value){
  					menuStr += '<li>';
- 					menuStr += '<a href="' + value.menuUrl + '>' + value.menuName;
+ 					menuStr += '<a href="/base' + value.menuUrl + '">' + value.menuName + '</a>';
  					menuStr += '</li>';
  	            });
  				

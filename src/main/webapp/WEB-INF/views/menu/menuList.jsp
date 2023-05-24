@@ -21,6 +21,10 @@
 		fn_selectMenuList();
 	});
 
+   function setLink(cellValue, options, rowData){
+	   return "<a href='/base/menu/menuDetail.do?menuId=" + rowData.menuId + "'>" + cellValue + "<a/>";
+   }
+   
    function fn_selectMenuList() {
  	  var body = $("table>tbody");
  	  var str = "";
@@ -37,7 +41,7 @@
 				colNames:['메뉴ID', '제목', '작성자아이디','순서','URL','작성일', '수정일'],
 				colModel:[
 					{name:'menuId', index:'menuId', width:90, align: "center"},
-					{name:'menuName', index:'menuName', width:100 , align: "center" },
+					{name:'menuName', index:'menuName', width:100 , align: "center", formatter:setLink },
 					{name:'writerId', index:'writerId', width:150, align: "center" },
 					{name:'ordr', index:'ordr', width:80, align: "center"},
 					{name:'menuUrl', index:'menuUrl', width:80, align: "center"},
@@ -63,11 +67,11 @@
 				sortname:'name',					// 첫 로딩시 정렬 기준 컬럼
 				shrinkToFit:true,					// 스크롤바 영역을 없애고 full로 화면 채움(default:true)
 				scroll : false,						// (default:false)
-				rowNum:5,							// 화면에 보여줄 row의 수, -1의 경우 unlimit 
+				rowNum:10,							// 화면에 보여줄 row의 수, -1의 경우 unlimit 
 													// 단, 데이터가 많을 경우 화면을 load 하는데 시간 오래 걸림
 				rowList:[5,10,15],                  // 화면에서 볼 수 있는 row의 수를 조절 가능
 				pager:'#jqGridPaging',              // 페이징관련 데이터를 보여줄 grid id (<div>)
-				caption: "Manipulating Array Data"	// grid 상단 캡션
+				caption: "메뉴목록"	// grid 상단 캡션
 			});
 		}
  	  });
@@ -77,7 +81,7 @@
 
 <body>
    <table id="list"></table>
-   <div id="pager"></div>
+   <div id="jqGridPaging"></div>
    <form id="commonForm" name="commonForm"></form>
    <a href="/base/menu/menuInsertPage.do">메뉴추가</a>
 </body>
